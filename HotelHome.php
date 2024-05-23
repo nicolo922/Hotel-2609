@@ -10,13 +10,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <style>
-#dashboard-menu {
-    background-color: #333; 
-    color: white; 
-    height: 100%;
-    overflow-y: auto;
-    position: fixed;
-}
+
     </style>
 <body>
 <main>
