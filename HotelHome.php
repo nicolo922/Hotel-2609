@@ -12,39 +12,10 @@
 
 <body>
 <main>
-    <!-- Sidebar -->
-    <aside class="col-lg-2 bg-tertiary-bg-rgb border-top border-3 border-dark" id="dashboard-menu">
-        <nav class="navbar navbar-expand-lg navbar-warning">
-            <div class="container-fluid flex-lg-column align-items-stretch">
-                <h3 class="mt-2 text-light fw-bold">Dashboard</h3>
-                <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="adminDropdown">
-                    <ul class="nav nav-pills flex-column h5">
-                        <li class="nav-item">
-                            <a href="HotelHome.php" class="nav-link text-light active" aria-current="page">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="UserTable.php" class="nav-link text-light">User Management</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="RoomTable.php" class="nav-link text-light">Rooms Table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="ReservationTable.php" class="nav-link text-light">Reservation Table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-light">Amenity Table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-light">Settings</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </aside>
+
+    <?php
+        include 'sidebar.php';
+    ?>
 
     <!-- Main Content -->
 
