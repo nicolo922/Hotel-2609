@@ -44,6 +44,8 @@ $sql = "SELECT * FROM usertable";
 $result = mysqli_query($conn, $sql);
 ?>
 
+<?php include_once 'sidebar.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
