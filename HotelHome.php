@@ -16,32 +16,32 @@
 
     <main class="content">
         <!-- Featured Rooms Section -->
-        <section class="message">
+        <div class="message">
             <h1>Featured Rooms</h1>
             <p>The utmost in elegance, seclusion, and comfort can be found in each of our well-furnished guest rooms.</p>
-        </section>
+        </div>
 
         <!-- Rooms Section -->
-        <section class="rooms-container">
+        <div class="rooms-container">
             <article class="room">
                 <h2>Standard Room</h2>
-                <img src="#" alt="Standard Room">
+                <img src="https://www.cityofdreamsmanila.com/en/stay/nuwa/resort-studio" alt="Standard Room">
                 <p>Our standard room is perfect for a comfortable stay. It comes with all basic amenities.</p>
                 <p>Price: P5000 per night</p>
             </article>
             <article class="room">
                 <h2>Deluxe Room</h2>
-                <img src="#" alt="Deluxe Room">
+                <img src="https://www.cityofdreamsmanila.com/en/stay/nuwa/deluxe-double-queen" alt="Deluxe Room">
                 <p>Experience luxury with our deluxe room. It offers extra space and premium amenities.</p>
                 <p>Price: P10000 per night</p>
             </article>
             <article class="room">
                 <h2>Suite Room</h2>
-                <img src="#" alt="Suite">
+                <img src="https://www.cityofdreamsmanila.com/en/stay/nuwa/crystal-villa" alt="Suite">
                 <p>Indulge yourself in our exquisite suite. It features a separate living area and a stunning view.</p>
                 <p>Price: P15000 per night</p>
             </article>
-        </section>
+    </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-iJ0VHzofo03+JygsTw28TNGM3+XFwBvHRGrPr+WzoAhh0WJjUz8D3+Uo0qYJms5b" crossorigin="anonymous"></script>
