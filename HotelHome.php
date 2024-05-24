@@ -12,14 +12,12 @@
 
 <body>
 <main>
-
+    
     <?php
         include 'sidebar.php';
     ?>
 
     <!-- Main Content -->
-
-    <!--Header-->
     <div class="header-container">
         <div class="contact-info">
             <a href="#" class="contact-item">Contact Item 1</a>
@@ -32,24 +30,7 @@
             <a href="#" class="social-link">Social Link 2</a>
         </div>
     </div>
-        <a href="#" class="book-now">Book Now</a>
-    </div>
-    <div class="container">
-        <!-- Carousel Section -->
-        <section class="carousel">
-            <div class="availability-form">
-                <form>
-                    <label for="check-in">Check-In Date:</label>
-                    <input type="date" id="check-in" name="check-in" placeholder="Check-in Date">
-                    <label for="check-out">Check-Out Date:</label>
-                    <input type="date" id="check-out" name="check-out" placeholder="Check-out Date">
-                    <label for="guests">Number of Guests:</label>
-                    <input type="number" id="guests" name="guests" min="1" max="10">
-                    <button type="submit">Search Availability</button>
-                </form>
-            </div> 
-            <button class="arrow next" onclick="nextImage()">❯</button>
-        </section>
+    <a href="#" class="book-now">Book Now</a>
 
         <!-- Featured Rooms Section -->
         <section class="message">
@@ -82,7 +63,6 @@
 </main>
 
 <script src="Home.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-iJ0VHzofo03+JygsTw28TNGM3+XFwBvHRGrPr+WzoAhh0WJjUz8D3+Uo0qYJms5b" crossorigin="anonymous"></script>
 </body>
 </html>
