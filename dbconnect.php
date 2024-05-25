@@ -1,13 +1,14 @@
 <?php
+// Start output buffering to prevent any accidental output
 
 $servername = "localhost";
 $username = "root";
-$pass = "";
-$dbase = "hotelreserv";
+$password = "";
+$dbname = "hotelreserv";
 
-$conn = new mysqli($servername,$username,$pass,$dbase);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-
-
-
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>

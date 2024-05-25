@@ -1,199 +1,157 @@
-<?php
-session_start();
-
-// Database connection
-$conn = mysqli_connect("localhost", "root", "", "hotelreserv");
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'add_user') {
-    // Retrieve form data
-    $fullname = isset($_POST['fullname']) ? mysqli_real_escape_string($conn, $_POST['fullname']) : '';
-    $role = isset($_POST['role']) ? mysqli_real_escape_string($conn, $_POST['role']) : '';
-    $username = isset($_POST['username']) ? mysqli_real_escape_string($conn, $_POST['username']) : '';
-    $password = isset($_POST['password']) ? mysqli_real_escape_string($conn, $_POST['password']) : '';
-    $email = isset($_POST['email']) ? mysqli_real_escape_string($conn, $_POST['email']) : '';
-
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // SQL query using prepared statement to insert data into the database
-    $sql = "INSERT INTO usertable (fullname, role, username, password, email) VALUES (?, ?, ?, ?, ?)";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssss", $fullname, $role, $username, $hashed_password, $email);
-
-    // Execute the prepared statement
-    if (mysqli_stmt_execute($stmt)) {
-        $_SESSION['success_message'] = "New record created successfully";
-    } else {
-        $_SESSION['error_message'] = "Error: " . mysqli_error($conn);
-    }
-
-    // Close statement
-    mysqli_stmt_close($stmt);
-
-    // Redirect to prevent form resubmission on page refresh
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-
-// Fetch user data from the database
-$sql = "SELECT * FROM usertable";
-$result = mysqli_query($conn, $sql);
-?>
-
-<?php include_once 'sidebar.php'; ?>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-<div class="container mt-3">
-    <?php
-    if (isset($_SESSION['success_message'])) {
-        echo "<div class='alert alert-success' role='alert'>" . $_SESSION['success_message'] . "</div>";
-        unset($_SESSION['success_message']);
-    }
-    if (isset($_SESSION['error_message'])) {
-        echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error_message'] . "</div>";
-        unset($_SESSION['error_message']);
-    }
-    ?>
-    <table>
-        <tr>
-            <th style="padding-right: 20px"><h1>Users</h1></th>
-            <?php if (isset($_SESSION['role']) && ($_SESSION['role'] == 'Admin')): ?>
-                <th><button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-success">Add a User</button></th>
-            <?php endif; ?>
-        </tr>
-    </table>
+  <head>
+  	<title>LL Hotel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
-    <!-- Add User Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add a User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addUserForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                        <input type="hidden" name="action" value="add_user">
-                        <div class="mb-3">
-                            <label for="fullname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname">
-                        </div>
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Role</label>
-                            <select id="role" name="role" class="form-select form-select-sm" aria-label="Default select example">
-                                <option selected value="Customer">Customer</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Admin">Admin</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn
-                            btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+				</div>
+				<div class="p-4">
+					<h1><a href="index.html" class="logo"><img src="images/logohotel.png"></h1> 
+					<ul class="list-unstyled components mb-5">
+						<li>
+							<a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
+						</li>
+						<li class="active">
+							<a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
+						</li>
+						<li>
+							<a href="RoomTable.php"><span class="fa fa-briefcase mr-3"></span> Rooms Table</a>
+						</li>
+						<li>
+							<a href="ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
+						</li>
+						<li>
+							<a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-    <form action="UserTable.php" method="post">
-        <div class="input-group mb-3 w-25">
-            <input type="text" name="query" placeholder="Input text to filter table" class="form-control mr-3">
-            <input type="submit" value="Search" name="search" class="btn btn-info btn-sm" id="button-addon1">
-        </div>
-    </form>
+        <!-- Page Content  -->
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>User ID</th>
-                <th>Full Name</th>
-                <th>Role</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result && mysqli_num_rows($result) > 0): ?>
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <tr>
-                        <td><?php echo $row["user_id"]; ?></td>
-                        <td><?php echo $row["fullname"]; ?></td>
-                        <td><?php echo $row["role"]; ?></td>
-                        <td><?php echo $row["username"]; ?></td>
-                        <td><?php echo $row["password"]; ?></td>
-                        <td><?php echo $row["email"]; ?></td>
-                        <td><a href='edit_user.php?id=<?php echo $row["user_id"]; ?>' class='btn btn-primary'>Edit</a></td>
-                        <td><button class='btn btn-danger' onclick='confirmDelete(<?php echo $row["user_id"]; ?>)'>Delete</button></td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr><td colspan='8'>No users found</td></tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
 
-    <!-- Remaining HTML and JavaScript code -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-LUZveXM9Mzk7z7lA2uhU5VpqXo3Fd5npnEK1Pz8Pe0cuoHz4mSCldEB8oNbAw84J" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KuRmfmKl/Nf2dr/AXft6vFBH5TbTGXiym1XH23XJJTc=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $('#addUserForm').submit(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: '<?php echo $_SERVER['PHP_SELF']; ?>',
-                    data: $(this).serialize() + '&action=add_user',
-                    success: function (response) {
-                        var jsonData = JSON.parse(response);
-                        if (jsonData.status == 'success') {
-                            // Reset form
-                            $('#addUserForm')[0].reset();
-                            // Close modal
-                            $('#staticBackdrop').modal('hide');
-                            // Display success message
-                            alert(jsonData.message);
-                            // Reload the page to reflect changes
-                            location.reload();
-                        } else {
-                            alert(jsonData.message);
-                        }
-                    },
-                    error: function () {
-                        alert('Error occurred while processing your request.');
-                    }
-                });
-            });
-        });
-    </script>
+
+      <div id="content" class="p-4 p-md-5 pt-5">
+
+      <div class="content-container">
+          <!-- Title Description -->
+          <div class="hotel-description">
+            <h1>User Management</h1>
+            <p>You are in Admin View</p>
+          </div>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Full Name</th>
+					<th>Role</th>
+					<th>Username</th>
+					<th>Password</th>
+					<th>Email</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Lorenz Bonifacio</td>
+					<td>Admin</td>
+					<td>lbonifacio</td>
+					<td>1234</td>
+					<td>lbonifacio@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Laurenz Briones</td>
+					<td>Admin</td>
+					<td>lbriones</td>
+					<td>5678</td>
+					<td>lbriones@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Jason Agilada</td>
+					<td>Customer</td>
+					<td>jasonalamillo123</td>
+					<td>101010</td>
+					<td>jasonalamillo@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Ravin Agon</td>
+					<td>Customer</td>
+					<td>ravinagon123</td>
+					<td>908070</td>
+					<td>ravinagon@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>Kirby Pada</td>
+					<td>Customer</td>
+					<td>kirbypada123</td>
+					<td>654321</td>
+					<td>kirbypada@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>Cassey Dela Cuz</td>
+					<td>Customer</td>
+					<td>casseydelacuz123</td>
+					<td>246810</td>
+					<td>casseydelacuz@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>Marko Alamillo</td>
+					<td>Customer</td>
+					<td>markoalamillo123</td>
+					<td>135790</td>
+					<td>markoalamillo@gmail.com</td>
+					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
 </div>
-</body>
+</div>
+		
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

@@ -8349,3 +8349,72 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #5356b1; }
+
+  .image-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adjust the gap between items */
+  }
+
+  .image-container > div {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+  }
+
+  .image-container > div img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px 8px 0 0; /* Rounded corners for top of image */
+  }
+
+
+  
+  .room-description {
+    padding: 15px 10px;
+  }
+
+  .room-description h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .room-description p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .room-description ul {
+    margin-top: 0;
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  .room-description ul li {
+    margin-bottom: 5px;
+  }
+
+  .hotel-description {
+    max-width: 800px; /* Limit width to prevent overly long lines */
+    margin: auto; /* Center horizontally */
+    text-align: center; /* Center text content */
+  }
+  
+  .hotel-description h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .hotel-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h3 {
+    text-align: center;
+    margin-top: 20px; /* Optional: Adjust margin as needed */
+  }
