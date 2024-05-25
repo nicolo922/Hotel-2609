@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "hotelreserv";
+$dbname = "hotel_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

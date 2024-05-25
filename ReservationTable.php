@@ -25,9 +25,6 @@
 					<h1><a href="index.html" class="logo"><img src="images/logohotel.png"></h1> 
 					<ul class="list-unstyled components mb-5">
 						<li>
-							<a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
-						</li>
-						<li>
 							<a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
 						</li>
 						<li>

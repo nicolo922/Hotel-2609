@@ -8353,7 +8353,7 @@ a[data-toggle="collapse"] {
   .image-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Adjust the gap between items */
+    gap: 10px; /* Adjust the gap between items */
   }
 
   .image-container > div {
@@ -8418,3 +8418,4 @@ a[data-toggle="collapse"] {
     text-align: center;
     margin-top: 20px; /* Optional: Adjust margin as needed */
   }
+

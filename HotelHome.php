@@ -63,7 +63,7 @@
           </button>
         </div>
         <div class="p-4">
-          <h1><a href="index.html" class="logo"><img src="images/logohotel.png" alt="Logo"></a></h1> 
+        <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
           <ul class="list-unstyled components mb-5">
             <li class="active">
               <a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
@@ -94,20 +94,40 @@
             <p>Experience luxury at its finest in our hotel. With world-class amenities and breathtaking views, we guarantee a memorable stay.</p>
           </div>
 
-          <!-- Room Options in Image Container -->
-            <h3>Explore Rooms & Suites</h3>
-          <div class="image-container">
-            <div>
-              <img src="images/deluxe.jpg" alt="Room 1">
-              <div class="room-description">
-                <h2>Deluxe Room</h2>
-                <p>Spacious and elegantly furnished, our Deluxe Rooms offer the perfect blend of comfort and luxury.</p>
-                <p>1500</p>
 
-              </div>
-            </div>
+<!-- Room Options in Image Container -->
+<h3>Explore Rooms & Suites</h3>
 
-        </div>
+
+<div class="image-container">
+    <?php
+    include 'dbconnect.php';
+
+    // Execute a new query to fetch all room details
+    $sql = "SELECT * FROM room_table";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div>';
+            echo '<img src="' . $row['image_url'] . '" alt="Room Image">';
+            echo '<div class="room-description">';
+            echo '<h2>' . $row['room_type'] . '</h2>';
+            echo '<p>' . $row['description'] . '</p>';
+            echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
+            echo '<h2>₱' . $row['price_per_night'] . ' <span>/ Day</span><h2>';
+            echo '</div>'; // Close room-description div
+            echo '</div>'; // Close main div for this room
+        }
+    } else {
+        echo "No rooms found.";
+    }
+
+    mysqli_close($conn);
+    ?>
+</div>
+
+
 
         <br>
         <br>
