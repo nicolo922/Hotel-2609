@@ -34,7 +34,7 @@
                         <a href="ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
+                        <a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
