@@ -133,6 +133,7 @@ include "dbconnect.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = ($_POST['username']);
     $password = md5($_POST['password']);
+    $action = "Logged In";
 
     if (empty($username) || empty($password)) {
         header("Location: Login.php?error=Username and password are required!");
