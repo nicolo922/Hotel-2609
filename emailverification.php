@@ -26,15 +26,15 @@ function send_otp($fullname, $email, $otp){
         $mail->Subject = "Your OTP Verification";
         $mail->Body    = "
             Dear " . $fullname . ",<br><br>
-            Welcome to [Hotel Name]!<br><br>
+            Welcome to LL Hotel!<br><br>
             To complete your account registration, please use the following One-Time Password (OTP):<br><br>
             <strong>" . $otp . "</strong><br><br>
             This OTP is valid for the next 10 minutes. Please enter it on the registration page to verify your account.<br><br>
             Thank you for choosing [Hotel Name]. We look forward to providing you with an exceptional experience.<br><br>
             Best regards,<br>
-            [Your Name]<br>
-            [Hotel Name] Customer Support Team<br>
-            [Contact Information]<br><br>
+            Laurenz Briones and Lorenz Bonifacio<br>
+            LL Accounts Management Team<br>
+            llhotel@gmail.com<br><br>
             ---
             <br>If you did not request this OTP, please ignore this email or contact our support team immediately.
         ";
@@ -43,7 +43,7 @@ function send_otp($fullname, $email, $otp){
         $mail->send();
         ?>
             <script>
-                alert("Email Successfully Send!!")
+                Swal.fire("Check Email for OTP");
             </script>
         <?php
     } catch (Exception $e) {
