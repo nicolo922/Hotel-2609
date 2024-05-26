@@ -8350,6 +8350,9 @@ a[data-toggle="collapse"] {
 .subscribe-form .form-control {
   background: #5356b1; }
 
+
+  /*Added Styles*/
+
   .image-container {
     display: flex;
     justify-content: space-between;
@@ -8372,8 +8375,6 @@ a[data-toggle="collapse"] {
     border-radius: 8px 8px 0 0; /* Rounded corners for top of image */
   }
 
-
-  
   .room-description {
     padding: 15px 10px;
   }
