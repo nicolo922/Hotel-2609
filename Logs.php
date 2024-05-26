@@ -62,64 +62,51 @@
                 <br>
 
                 <?php
-                require_once "dbconnect.php";
+include 'dbconnect.php';
 
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+    }
 
-                $search = "";
+    $sql = "SELECT * FROM view_logs";
+    $search = '';
 
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
-                    $search = $_POST['search'];
-                }
+    if (isset($_POST['search'])) {
+        $search = mysqli_real_escape_string($conn, $_POST['search']);
+        $sql .= " WHERE user_id LIKE '%" . $search . "%'
+                    OR action LIKE '%" . $search . "%' 
+                    OR DateTime LIKE '%" . $search . "%'";
+    }
 
-                $sql = "SELECT * FROM user_table";
+    $result = mysqli_query($conn, $sql);
 
-                if (!empty($search)) {
-                    $keywords = explode(" ", $search);
-                    $conditions = [];
+    if (!$result) {
+        die("Error fetching data: " . mysqli_error($conn));
+    }
 
-                    foreach ($keywords as $keyword) {
-                        $conditions[] = "user_id LIKE '%" . $keyword . "%' OR 
-                                        full_name LIKE '%" . $keyword . "%' OR 
-                                        role LIKE '%" . $keyword . "%' OR 
-                                        username LIKE '%" . $keyword . "%'";
-                    }
-
-                    $sql .= " WHERE " . implode(" OR ", $conditions);
-                }
-
-                $result = mysqli_query($conn, $sql);
-
-                if (!$result) {
-                    die("Error fetching data: " . mysqli_error($conn));
-                }
-                ?>
+    ?>
 
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Full Name</th>
-                            <th>Role</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>OTP</th>
-                        </tr>
+                    <tr>
+                <th>Logs ID</th>
+                <th>User ID</th>
+                <th>Action</th>
+                <th>Date Time</th>
+                    </tr>
                     </thead>
                     <tbody>
                         <?php
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
-                                echo "<td>" . $row["user_id"] . "</td>";
+                                echo "<td>" . $row["logs_id"] . "</td>";
                                 echo "<td>" . $row["full_name"] . "</td>";
-                                echo "<td>" . $row["role"] . "</td>";
-                                echo "<td>" . $row["username"] . "</td>";
-                                echo "<td>" . $row["email"] . "</td>";
-                                echo "<td>" . $row["otp"] . "</td>";
-                                echo "</tr>";
+                                echo "<td>" . $row["action"] . "</td>";
+                                $dateTime = new DateTime($row["DateTime"]);
+                                $formattedDateTime = $dateTime->format("F j, Y, g:i A");
+                                echo "<td>" . $formattedDateTime . "</td>";
+                            echo "</tr>";
                             }
                         } else {
                             echo "<tr><td colspan='6'>No records found</td></tr>";
@@ -131,6 +118,7 @@
                 <?php
                 mysqli_close($conn);
                 ?>
+                
             </div>
         </div>
     </div>

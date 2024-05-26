@@ -148,6 +148,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->num_rows == 1) {
         $stmt->bind_result($user_id, $db_username, $hashed_password, $full_name);
         $stmt->fetch();
+
+        // Insert log entry into logs table
+        $insert_log_sql = "INSERT INTO logs_table (user_id, action, DateTime) VALUES ('$user_id', '$action', NOW())";
+        $conn->query($insert_log_sql);
+        
         
         // Verify password using password_verify for hashed passwords
             $_SESSION['username'] = $db_username;
