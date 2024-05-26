@@ -36,6 +36,9 @@
 						<li>
 							<a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
 						</li>
+						<li>
+							<a href="Login.php"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+						</li>
 					</ul>
 				</div>
 			</nav>
