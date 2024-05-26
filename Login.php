@@ -131,8 +131,8 @@ session_start();
 include "dbconnect.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
+    $username = ($_POST['username']);
+    $password = md5($_POST['password']);
 
     if (empty($username) || empty($password)) {
         header("Location: Login.php?error=Username and password are required!");
@@ -140,8 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT user_id, username, password, full_name FROM user_table WHERE username=?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT user_id, username, password, full_name FROM user_table WHERE username=? AND password=?");
+    $stmt->bind_param("ss", $username,$password);
     $stmt->execute();
     $stmt->store_result();
 
@@ -150,7 +150,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         
         // Verify password using password_verify for hashed passwords
-        if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $db_username;
             $_SESSION['name'] = $full_name;
             $_SESSION['id'] = $user_id;
@@ -160,18 +159,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: Login.php?error=Incorrect password");
             exit();
         }
-    } else {
-        header("Location: Login.php?error=User not found");
-        exit();
-    }
-}
+    } 
 
-function validate($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 ?>
 </body>
 </html>
