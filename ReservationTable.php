@@ -22,8 +22,7 @@
 					</button>
 				</div>
 				<div class="p-4">
-					<h1><a href="index.html" class="logo"><img src="images/logohotel.png"></h1> 
-					<ul class="list-unstyled components mb-5">
+				<h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>					<ul class="list-unstyled components mb-5">
 						<li>
 							<a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
 						</li>

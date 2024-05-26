@@ -113,6 +113,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </div>
 
 
+<!-- RESERVATION INTERFACE -->          
+
+
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
 
