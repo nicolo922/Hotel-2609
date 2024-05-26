@@ -114,7 +114,7 @@
 <body>
     <div class="wrapper">
         <h1>Sign Up</h1>
-        <form method="POST" action="verifyotp.php">
+        <form method="POST" action="signup_process.php">
             <input type="text" name="firstname" placeholder="First Name" required>
             <input type="text" name="lastname" placeholder="Last Name" required>
             <input type="email" name="email" placeholder="Email" required>
