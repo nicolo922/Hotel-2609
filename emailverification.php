@@ -24,8 +24,21 @@ function send_otp($fullname, $email, $otp){
         //Content
         $mail->isHTML(true);  // Set email format to HTML
         $mail->Subject = "Your OTP Verification";
-        $mail->Body    = "Hello". $fullname."
-        <br> Greetings: ".$otp;
+        $mail->Body    = "
+            Dear " . $fullname . ",<br><br>
+            Welcome to [Hotel Name]!<br><br>
+            To complete your account registration, please use the following One-Time Password (OTP):<br><br>
+            <strong>" . $otp . "</strong><br><br>
+            This OTP is valid for the next 10 minutes. Please enter it on the registration page to verify your account.<br><br>
+            Thank you for choosing [Hotel Name]. We look forward to providing you with an exceptional experience.<br><br>
+            Best regards,<br>
+            [Your Name]<br>
+            [Hotel Name] Customer Support Team<br>
+            [Contact Information]<br><br>
+            ---
+            <br>If you did not request this OTP, please ignore this email or contact our support team immediately.
+        ";
+        
 
         $mail->send();
         ?>
