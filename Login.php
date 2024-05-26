@@ -115,7 +115,7 @@
 <body>
 <div class="wrapper">
         <h1>Login</h1>
-        <form method="POST" action="HotelHome.php">
+        <form method="POST" action="Login.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <div class="recover">
@@ -125,6 +125,55 @@
         </form>
         <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
     </div>
+
+    <?php
+
+session_start();
+include "dbconnect.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = validate($_POST['username']);
+    $password = validate($_POST['password']);
+
+    if (empty($username) || empty($password)) {
+        header("Location: Login.php?error=Username and password are required!");
+        exit();
+    }
+
+    // Use prepared statements to prevent SQL injection
+    $stmt = $conn->prepare("SELECT id, username, password, name FROM user_table WHERE username=?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows == 1) {
+        $stmt->bind_result($id, $db_username, $db_password, $name);
+        $stmt->fetch();
+        
+        // Verify password using password_verify for hashed passwords
+        if (password_verify($password, $db_password)) {
+            $_SESSION['username'] = $db_username;
+            $_SESSION['name'] = $name;
+            $_SESSION['id'] = $id;
+            header("Location: HotelHome.php");
+            exit();
+        } else {
+            header("Location: Login.php?error=Incorrect password");
+            exit();
+        }
+    } else {
+        header("Location: Login.php?error=User not found");
+        exit();
+    }
+}
+
+function validate($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+?>
 
 </body>
 </html>

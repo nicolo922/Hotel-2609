@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+
+}
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,6 +16,7 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="C:\xampp\htdocs\Hotel_New\Hotel-2609\images\logohotel.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
 
   </head>
@@ -86,6 +96,8 @@
           </ul>
         </div>
       </nav>
+
+
 
       <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
