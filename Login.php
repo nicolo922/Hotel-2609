@@ -89,11 +89,23 @@
         font-size: 0.8rem;
         margin-top: 1.4rem;
         color: #636363;
+        text-align: center;
     }
 
     .member a{
         color: rgb(17, 107, 143);
         text-decoration: none;
+    }
+
+    .recover{
+        text-align: right;
+        font-size: 0.7rem;
+        margin: 0.3rem 1.4rem 0 0.;
+    }
+
+    .recover a{
+        text-decoration: none;
+        color: #464647;
     }
 
     </style>
@@ -105,14 +117,8 @@
         <form action="#">
             <input type="text" placeholder="Username">
             <input type="password" placeholder="Password">
-
-        <select name="role">
-            <option value="" disabled selected>Choose</option>
-            <option value="admin">Admin</option>
-            <option value="customer">Customer</option>
-            <option value="employee">Employee</option>
-        </select>
-
+        <div class="recover">
+            <a href="#">Forgot Password?</a>
         </form>
     <button>Login</button>
     <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
