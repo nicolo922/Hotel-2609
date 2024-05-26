@@ -115,7 +115,7 @@
 <body>
 <div class="wrapper">
         <h1>Login</h1>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="POST" action="HotelHome.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <div class="recover">
@@ -125,60 +125,6 @@
         </form>
         <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
     </div>
-
-    <?php
-require_once "dbconnect.php";
-
-// Define variables to hold error messages
-$usernameErr = $passwordErr = $loginErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate username and password
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = $_POST['password'];
-
-    // Check if username is empty
-    if (empty($username)) {
-        $usernameErr = "Username is required";
-    }
-
-    // Check if password is empty
-    if (empty($password)) {
-        $passwordErr = "Password is required";
-    }
-
-    // Proceed with login if no validation errors
-    if (empty($usernameErr) && empty($passwordErr)) {
-        // Check if the username exists in the database
-        $sql = "SELECT * FROM user_table WHERE username = '$username'";
-        $result = mysqli_query($conn, $sql);
-
-        if (!$result) {
-            die("Error fetching data: " . mysqli_error($conn));
-        }
-
-        // If the username exists, check the password
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $hashed_password = $row['password'];
-
-            if (password_verify($password, $hashed_password)) {
-                // Successful login, redirect to HotelHome.php
-                header("Location: HotelHome.php");
-                exit();
-            } else {
-                // Invalid password
-                $loginErr = "Invalid password. Please try again.";
-            }
-        } else {
-            // Username doesn't exist
-            $loginErr = "No account found for username: $username";
-        }
-    }
-}
-
-mysqli_close($conn);
-?>
 
 </body>
 </html>
