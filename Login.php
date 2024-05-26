@@ -123,7 +123,7 @@
         </div>
         <button type="submit">Login</button>
     </form>
-    <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
+    <div class="member">Don't have an account? <a href="SignUp.php">Signup Here</a></div>
 </div>
 
 <?php
