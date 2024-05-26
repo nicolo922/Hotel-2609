@@ -137,3 +137,54 @@
     </div>
 </body>
 </html>
+
+
+<?php
+require_once "dbconnect.php";
+include "emailverification.php";
+
+// button function
+if (isset($_POST['submit'])) {
+    // Retrieve form data
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+    $fullname = $firstname .' '. $lastname;
+    $otp = rand(100000, 999999);
+
+    // User Type
+    $role = $_POST['role']; // get the selected user type from the form
+
+    // Insert query
+    $insertsql = "INSERT INTO user_table (full_name, role, username, password, email, otp, verification)
+    VALUES ('$fullname', '$role', '$username', '$password', '$email', '$otp', 'Not Active')";
+
+    // Execute insert query
+    $result = $conn->query($insertsql);
+
+    // Check if data is inserted successfully
+    if ($result === TRUE) { 
+        send_otp($fullname, $email, $otp); // Assuming you have a function to send OTP
+?>
+        <script>
+            window.location.href = "verifyotp.php"; // Redirect to OTP verification page
+        </script>
+        <script>
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Successfully added",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+
+<?php
+    } else {
+        // If not inserted
+        echo $conn->error; // Display table error
+    }
+}
+?>
