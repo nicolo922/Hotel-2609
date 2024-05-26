@@ -142,6 +142,39 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     ?>
 </div>
 
+<br>
+<br>
+<!-- Amenities Options in Image Container -->
+<h3>Explore our Amenities</h3>
+
+
+<div class="image-container">
+    <?php
+    include 'dbconnect.php';
+
+    // Execute a new query to fetch all room details
+    $sql = "SELECT * FROM amenity_table";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div>';
+            echo '<img src="' . $row['image_url'] . '" alt="Room Image">';
+            echo '<div class="room-description">';
+            echo '<h2>' . $row['amenity_name'] . '</h2>';
+            echo '<p>' . $row['description'] . '</p>';
+            echo '<h2>' . $row['price_per_use'] . '</h2>';
+            echo '</div>'; // Close room-description div
+            echo '</div>'; // Close main div for this room
+        }
+    } else {
+        echo "No rooms found.";
+    }
+
+    mysqli_close($conn);
+    ?>
+</div>
+
 
 
         <br>
