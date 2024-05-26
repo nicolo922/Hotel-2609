@@ -52,7 +52,7 @@
                 </div>
                 <br>
                 <div class="single-room-review-area">
-                    <form id="roomForm" action="room_add.php" method="POST" enctype="multipart/form-data">
+                    <form id="amenityForm" action="amenity_add.php" method="POST" enctype="multipart/form-data">
                         <div class="reviwer-thumbnail">
                             <label for="upload_img" class="upload-label">
                                 <img src="./img/bg-img/upload-icon.png" alt="Upload Image" id="preview_img">
@@ -61,57 +61,49 @@
                         </div>
                         <div class="reviwer-content">
                             <div class="form-group">
-                                <label for="Room_Type">Amenity</label>
-                                <input type="text" name="room_type" id="Room_Type" class="form-control" placeholder="RoomType" required>
+                                <label for="Amenity_name">Amenity</label>
+                                <input type="text" name="amenity_name" id="amenity_name" class="form-control" placeholder="amenity_name" required>
                             </div>
                             <div class="form-group">
                                 <label for="Description">Description</label>
-                                <input type="text" name="description" id="Description" class="form-control" placeholder="Description" required>
+                                <input type="text" name="description" id="description" class="form-control" placeholder="description" required>
                             </div>
                             <div class="form-group">
-                                <label for="Capacity">Capacity</label>
-                                <input type="text" name="capacity" id="Capacity" class="form-control" placeholder="Capacity" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="Price">Price Per Night</label>
-                                <input type="text" name="price" id="Price" class="form-control" placeholder="Price" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="Availability">Availability</label>
-                                <input type="text" name="availability" id="Availability" class="form-control" placeholder="Availability" required>
+                                <label for="Price">Price Per Use</label>
+                                <input type="text" name="price_per_use" id="price_per_use" class="form-control" placeholder="price_per_use" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
                 <br>
-                <div class="image-container">
-                    <?php
-                    include 'dbconnect.php';
+				<div class="image-container">
+    <?php
+    include 'dbconnect.php';
 
-                    // Execute a new query to fetch all room details
-                    $sql = "SELECT * FROM room_table";
-                    $result = mysqli_query($conn, $sql);
+    // Execute a new query to fetch all room details
+    $sql = "SELECT * FROM amenity_table";
+    $result = mysqli_query($conn, $sql);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<div>';
-                            echo '<img src="' . $row['image_url'] . '" alt="Room Image">';
-                            echo '<div class="room-description">';
-                            echo '<h2>' . $row['room_type'] . '</h2>';
-                            echo '<p>' . $row['description'] . '</p>';
-                            echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
-                            echo '<h2>₱' . $row['price_per_night'] . ' <span>/ Day</span></h2>';
-                            echo '</div>'; // Close room-description div
-                            echo '</div>'; // Close main div for this room
-                        }
-                    } else {
-                        echo "No rooms found.";
-                    }
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div>';
+            echo '<img src="' . $row['image_url'] . '" alt="Amenity Image">';
+            echo '<div class="room-description">';
+            echo '<h2>' . $row['amenity_name'] . '</h2>';
+            echo '<p>' . $row['description'] . '</p>';
+            echo '<h2>' . $row['price_per_use'] . '</h2>';
+            echo '</div>'; // Close room-description div
+            echo '</div>'; // Close main div for this room
+        }
+    } else {
+        echo "No amenity found.";
+    }
 
-                    mysqli_close($conn);
-                    ?>
-                </div>
+    mysqli_close($conn);
+    ?>
+</div>
+
             </div>
         </div>
 
