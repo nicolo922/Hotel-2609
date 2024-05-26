@@ -102,7 +102,7 @@
     .recover{
         text-align: right;
         font-size: 0.7rem;
-        margin: 0.3rem 1.4rem 0 0.;
+        margin: 0.3rem 1.4rem 0 0;
     }
 
     .recover a{
@@ -110,24 +110,23 @@
         color: #464647;
     }
 
-    </style>
+</style>
 
 <body>
 <div class="wrapper">
-        <h1>Login</h1>
-        <form method="POST" action="Login.php">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <div class="recover">
-                <a href="#">Forgot Password?</a>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
-    </div>
+    <h1>Login</h1>
+    <form method="POST" action="Login.php">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <div class="recover">
+            <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
+</div>
 
-    <?php
-
+<?php
 session_start();
 include "dbconnect.php";
 
@@ -141,20 +140,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT id, username, password, name FROM user_table WHERE username=?");
+    $stmt = $conn->prepare("SELECT user_id, username, password, full_name FROM user_table WHERE username=?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows == 1) {
-        $stmt->bind_result($id, $db_username, $db_password, $name);
+        $stmt->bind_result($user_id, $db_username, $hashed_password, $full_name);
         $stmt->fetch();
         
         // Verify password using password_verify for hashed passwords
-        if (password_verify($password, $db_password)) {
+        if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $db_username;
-            $_SESSION['name'] = $name;
-            $_SESSION['id'] = $id;
+            $_SESSION['name'] = $full_name;
+            $_SESSION['id'] = $user_id;
             header("Location: HotelHome.php");
             exit();
         } else {
@@ -174,6 +173,5 @@ function validate($data) {
     return $data;
 }
 ?>
-
 </body>
 </html>
