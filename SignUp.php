@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     *{
@@ -89,6 +91,7 @@
         font-size: 0.8rem;
         margin-top: 1.4rem;
         color: #636363;
+        text-align: center;
     }
 
     .member a{
@@ -96,33 +99,41 @@
         text-decoration: none;
     }
 
+    .recover{
+        text-align: right;
+        font-size: 0.7rem;
+        margin: 0.3rem 1.4rem 0 0.;
+    }
+
+    .recover a{
+        text-decoration: none;
+        color: #464647;
+    }
+
     </style>
-
+    
 <body>
-
     <div class="wrapper">
         <h1>Sign Up</h1>
-        <form action="#">
-            <input type="text" placeholder="Firstname">
-            <input type="text" placeholder="Lastname">
-            <imput type="email" placeholder="Email">
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-
-        <select name="role">
-            <option value="" disabled selected>Choose</option>
-            <option value="admin">Admin</option>
-            <option value="customer">Customer</option>
-            <option value="employee">Employee</option>
-        </select>
-
+        <form method="POST" action="signup_process.php">
+            <input type="text" name="firstname" placeholder="Firstname" required>
+            <input type="text" name="lastname" placeholder="Lastname" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="role" required>
+                <option value="" disabled selected>Choose</option>
+                <option value="admin">Admin</option>
+                <option value="customer">Customer</option>
+                <option value="employee">Employee</option>
+            </select>
+            <div class="terms">
+                <input type="checkbox" id="checkbox" required>
+                <label for="checkbox">I agree to these <a href="#">Terms & Conditions</a></label>
+            </div>
+            <button type="submit">Sign Up</button>
         </form>
-    <div class="terms">
-        <input type="checkbox" id="checkbox">
-        <label for="checkbox">I agree to these <a href="#">Terms & Conditions</a></label>
-    </div>
-    <button>Sign Up</button>
-    <div class="member">Have and account? <a href="Login.php">Login Here</a></div>
+        <div class="member">Have an account? <a href="Login.php">Login Here</a></div>
     </div>
 </body>
 </html>

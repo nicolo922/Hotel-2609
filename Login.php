@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     *{
@@ -111,17 +113,17 @@
     </style>
 
 <body>
-
     <div class="wrapper">
         <h1>Login</h1>
-        <form action="#">
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-        <div class="recover">
-            <a href="#">Forgot Password?</a>
+        <form method="POST" action="HotelHome.php">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div class="recover">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit">Login</button>
         </form>
-    <button>Login</button>
-    <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
+        <div class="member">Create an account <a href="SignUp.php">Sign-up Here</a></div>
     </div>
 </body>
 </html>
