@@ -25,6 +25,7 @@ function send_otp($fullname, $email, $otp){
         $mail->isHTML(true);  // Set email format to HTML
         $mail->Subject = "Your OTP Verification";
         $mail->Body    = "
+            <img src='images/logohotel.png' alt='LL Hotel Logo' style='width: 100px;'><br><br>
             Dear " . $fullname . ",<br><br>
             Welcome to LL Hotel!<br><br>
             To complete your account registration, please use the following One-Time Password (OTP):<br><br>
