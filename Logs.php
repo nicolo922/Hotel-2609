@@ -21,7 +21,7 @@
             <div class="p-4">
                 <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png" alt="Logo"></a></h1>
                 <ul class="list-unstyled components mb-5">
-                    <li class="active">
+                    <li>
                         <a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
                     </li>
                     <li>
@@ -33,7 +33,7 @@
                     <li>
                         <a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="Logs.php"><span class="fa fa-paper-plane mr-3"></span> Logs</a>
                     </li>
                     <li>
@@ -48,7 +48,7 @@
             <div class="content-container">
                 <!-- Title Description -->
                 <div class="hotel-description">
-                    <h1>User Management</h1>
+                    <h1>User Activity Logs</h1>
                     <p>You are in Admin View</p>
                 </div>
 

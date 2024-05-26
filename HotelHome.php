@@ -91,6 +91,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
               <a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
             </li>
             <li>
+                <a href="Logs.php"><span class="fa fa-paper-plane mr-3"></span> Logs</a>
+            </li>
+            <li>
               <a href="Login.php"><span class="fa fa-sign-out mr-3"></span> Logout</a>
             </li>
           </ul>
