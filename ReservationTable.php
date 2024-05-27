@@ -1,6 +1,50 @@
 <?php
-include 'dbconnect.php';
+session_start();
+include 'dbconnect.php'; // Ensure this file contains the correct database connection setup
 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
+    $user_id = $_SESSION['user_id']; // Assuming user is logged in and user_id is stored in session
+    $room_id = $_POST['roomSelect'];
+    $check_in_date = $_POST['checkin_date'];
+    $check_out_date = $_POST['checkout_date'];
+    $adults = $_POST['adults'];
+    $children = $_POST['children'];
+
+    // Calculate total price
+    $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
+    
+    // Set reservation status
+    $reservation_status = 'Pending';
+
+    // Insert reservation into database
+    $stmt = $conn->prepare("INSERT INTO reservation_table (user_id, room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price, $reservation_status);
+
+    if ($stmt->execute()) {
+        $message = "Reservation successful!";
+    } else {
+        $message = "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
+    // Dummy pricing logic for illustration
+    $roomPrices = [
+        10 => 20000, // Presidential Suite
+        8 => 15000, // Executive Suite
+        2 => 7000,  // Deluxe Room
+    ];
+
+    $room_price = $roomPrices[$room_id];
+    $num_nights = (strtotime($check_out_date) - strtotime($check_in_date)) / (60 * 60 * 24);
+    return $room_price * $num_nights * ($adults + ($children * 0.5)); // Example calculation
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,64 +96,65 @@ include 'dbconnect.php';
 
     <!-- Main Content -->
     <div id="content" class="p-4 p-md-5 pt-5">
-    <div class="container mt-5">
-        <h2>Reservation Table</h2>
-        <p>You are in Admin View</p>
-        <!-- Display Success or Error Messages -->
-        <?php if (!empty($message)): ?>
-            <div class="alert alert-info"><?php echo $message; ?></div>
-        <?php endif; ?>
-        <!-- Display Reservation Table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Reservation_ID</th>
-                    <th>User_ID</th>
-                    <th>Room_ID</th>
-                    <th>Check-in Date</th>
-                    <th>Check-out Date</th>
-                    <th>Total Price</th>
-                    <th>Reservation Status</th>
-                    <th>Adults</th>
-                    <th>Children</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+        <div class="container mt-5">
+            <h2>Reservation Table</h2>
+            <p>You are in Admin View</p>
+            <!-- Display Success or Error Messages -->
+            <?php if (!empty($message)): ?>
+                <div class="alert alert-info"><?php echo $message; ?></div>
+            <?php endif; ?>
+            <!-- Display Reservation Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Reservation_ID</th>
+                        <th>User_ID</th>
+                        <th>Room_ID</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Total Price</th>
+                        <th>Reservation Status</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include 'dbconnect.php'; // Ensure this file contains the correct database connection setup
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT * FROM reservation_table WHERE user_id = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("i", $_SESSION['user_id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row["reservation_id"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["user_id"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["room_id"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["check_in_date"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["check_out_date"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["total_price"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["reservation_status"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["adults"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["children"]) . "</td>";
-                        echo "<td>";
-                        ?>
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-                            <input type="hidden" name="reservation_id" value="<?php echo htmlspecialchars($row["reservation_id"]); ?>">
-                            <button type="submit" name="accept" class="btn btn-success">Accept</button>
-                            <button type="submit" name="declined" class="btn btn-danger">Decline</button>
-                        </form>
-                        <?php
-                        echo "</td>";
+                        echo "<td>" . $row['reservation_id'] . "</td>";
+                        echo "<td>" . $row['user_id'] . "</td>";
+                        echo "<td>" . $row['room_id'] . "</td>";
+                        echo "<td>" . $row['check_in_date'] . "</td>";
+                        echo "<td>" . $row['check_out_date'] . "</td>";
+                        echo "<td>" . $row['total_price'] . "</td>";
+                        echo "<td>" . $row['reservation_status'] . "</td>";
+                        echo "<td>" . $row['adults'] . "</td>";
+                        echo "<td>" . $row['children'] . "</td>";
                         echo "</tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='10'>No records found</td></tr>";
-                }
 
-                mysqli_close($conn);
-                ?>
-            </tbody>
-        </table>
+                    $stmt->close();
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 <!-- JavaScript Libraries -->
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>
@@ -117,5 +162,3 @@ include 'dbconnect.php';
 <script src="js/main.js"></script>
 </body>
 </html>
-
-                   

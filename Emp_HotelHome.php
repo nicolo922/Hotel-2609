@@ -148,36 +148,38 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 <!-- RESERVATION INTERFACE -->          
 
-<div class="booking-form">
+<form action="ReservationTable.php" method="POST" class="booking-form">
     <div>
         <label for="checkin">Check In</label>
-        <input type="date" id="checkin" name="checkin">
+        <input type="date" id="checkin" name="checkin_date" required>
     </div>
     <div>
         <label for="checkout">Check Out</label>
-        <input type="date" id="checkout" name="checkout">
+        <input type="date" id="checkout" name="checkout_date" required>
     </div>
     <div>
         <label for="room">Room</label>
-        <select id="room" name="room">
-        <option value="" disabled selected>Choose</option>
-            <option value="presidential">Presidential Suite</option>
-            <option value="deluxe">Deluxe Room</option>
-            <option value="executive">Executive Room</option>
+        <select id="room" name="roomSelect" required>
+            <option value="" disabled selected>Choose</option>
+            <option value="10">Presidential Suite</option>
+            <option value="2">Deluxe Suite</option>
+            <option value="8">Executive Room</option>
         </select>
     </div>
     <div>
         <label for="adult">Adult</label>
-        <input type="number" id="adult" name="adult" min="1" max="10" value="1">
+        <input type="number" id="adult" name="adults" min="1" max="10" value="1" required>
     </div>
     <div>
         <label for="children">Children</label>
-        <input type="number" id="children" name="children" min="0" max="10" value="0">
+        <input type="number" id="children" name="children" min="0" max="10" value="0" required>
     </div>
     <div>
-        <button type="submit">Check Availability</button>
+        <button type="submit">Book Now</button>
     </div>
-</div>
+</form>
+
+<br>
 
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
