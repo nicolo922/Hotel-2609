@@ -19,7 +19,7 @@
                 </button>
             </div>
             <div class="p-4">
-                <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png" alt="Logo"></a></h1>
+                <h1><a href="UserTable.php" class="logo"><img src="images/logohotel.png" alt="Logo"></a></h1>
 
                 <div class="showusertype">
         <h6>Welcome Admin!</h6>

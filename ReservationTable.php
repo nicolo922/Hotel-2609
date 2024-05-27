@@ -92,7 +92,7 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
             </button>
         </div>
         <div class="p-4">
-            <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+            <h1><a href="ReservationTable.php" class="logo"><img src="images/logohotel.png"></a></h1>
 
             <div class="showusertype">
         <h6>Welcome Admin!</h6>
