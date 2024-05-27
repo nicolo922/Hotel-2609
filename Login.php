@@ -115,7 +115,7 @@
 <body>
 <div class="wrapper">
     <h1>Login</h1>
-    <form method="POST" action="Login.php">
+    <form method="POST" action="">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <div class="recover">
@@ -131,8 +131,8 @@ session_start();
 include "dbconnect.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = ($_POST['username']);
-    $password = md5($_POST['password']);
+    $username = $_POST['username'];
+    $password = md5($_POST['password']); // Use a more secure hashing algorithm like bcrypt in production
     $action = "Logged In";
 
     if (empty($username) || empty($password)) {
@@ -141,32 +141,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT user_id, username, password, full_name FROM user_table WHERE username=? AND password=?");
-    $stmt->bind_param("ss", $username,$password);
+    $stmt = $conn->prepare("SELECT user_id, username, password, full_name, role FROM user_table WHERE username=? AND password=?");
+    $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows == 1) {
-        $stmt->bind_result($user_id, $db_username, $hashed_password, $full_name);
+        $stmt->bind_result($user_id, $db_username, $hashed_password, $full_name, $role);
         $stmt->fetch();
 
         // Insert log entry into logs table
-        $insert_log_sql = "INSERT INTO logs_table (user_id, action, DateTime) VALUES ('$user_id', '$action', NOW())";
-        $conn->query($insert_log_sql);
-        
-        
-        // Verify password using password_verify for hashed passwords
-            $_SESSION['username'] = $db_username;
-            $_SESSION['name'] = $full_name;
-            $_SESSION['id'] = $user_id;
-            header("Location: HotelHome.php");
-            exit();
-        } else {
-            header("Location: Login.php?error=Incorrect password");
-            exit();
-        }
-    } 
+        $insert_log_sql = "INSERT INTO logs_table (user_id, action, DateTime) VALUES (?, ?, NOW())";
+        $log_stmt = $conn->prepare($insert_log_sql);
+        $log_stmt->bind_param("is", $user_id, $action);
+        $log_stmt->execute();
 
+        // Set session variables
+        $_SESSION['username'] = $db_username;
+        $_SESSION['name'] = $full_name;
+        $_SESSION['id'] = $user_id;
+        $_SESSION['role'] = $role;
+
+        // Redirect to the respective dashboard based on user type
+        if ($role == 'admin') {
+            header("Location: HotelHome.php");
+        } elseif ($role == 'employee') {
+            header("Location: Emp_HotelHome.php");
+        } else {
+            header("Location: Customer_HotelHome.php"); // Default redirect if user type is unknown
+        }
+        exit();
+    } else {
+        header("Location: Login.php?error=Incorrect username or password");
+        exit();
+    }
+}
 ?>
+
 </body>
 </html>
