@@ -1,84 +1,6 @@
 <?php
 include 'dbconnect.php';
 
-$message = '';
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['accept']) || isset($_POST['declined'])) {
-        $reservation_id = isset($_POST['reservation_id']) ? intval($_POST['reservation_id']) : 0;
-
-        if ($reservation_id > 0) {
-            $action = isset($_POST['accept']) ? 'Accepted' : 'Declined';
-            $sql_update = "UPDATE reservation_table SET reservation_status = ? WHERE reservation_id = ?";
-            $stmt = mysqli_prepare($conn, $sql_update);
-            mysqli_stmt_bind_param($stmt, "si", $action, $reservation_id);
-            if (mysqli_stmt_execute($stmt)) {
-                $message = "Reservation has been $action.";
-            } else {
-                $message = "An error occurred while updating reservation status: " . mysqli_error($conn);
-            }
-        } else {
-            $message = "Invalid reservation ID.";
-        }
-    } else {
-        $check_in_date = isset($_POST['check_in_date']) ? $_POST['check_in_date'] : '';
-        $check_out_date = isset($_POST['check_out_date']) ? $_POST['check_out_date'] : '';
-        $room_id = isset($_POST['roomSelect']) ? intval($_POST['roomSelect']) : 0;
-        $adults = isset($_POST['adults']) ? intval($_POST['adults']) : 1;
-        $children = isset($_POST['children']) ? intval($_POST['children']) : 0;
-
-        if (!$check_in_date || !$check_out_date || $room_id <= 0) {
-            $message = "Please fill in all required fields.";
-        } else {
-            // Calculate total price
-            $check_in_date = new DateTime($check_in_date);
-            $check_out_date = new DateTime($check_out_date);
-            $interval = $check_in_date->diff($check_out_date);
-            $nights = $interval->days;
-
-            $roomPrices = [
-                10 => 20000, // Presidential Suite
-                8 => 15000, // Executive Suite
-                2 => 7000,  // Deluxe Room
-            ];
-
-            if (isset($roomPrices[$room_id])) {
-                $price_per_night = $roomPrices[$room_id];
-                $total_price = $nights * $price_per_night;
-
-                // Check if the room_id exists in the room_table
-                $sql_check_room = "SELECT COUNT(*) as count FROM your_room_table WHERE room_id = ?";
-                $stmt_check_room = mysqli_prepare($conn, $sql_check_room);
-                mysqli_stmt_bind_param($stmt_check_room, "i", $room_id);
-                mysqli_stmt_execute($stmt_check_room);
-                $result_check_room = mysqli_stmt_get_result($stmt_check_room);
-                $row_check_room = mysqli_fetch_assoc($result_check_room);
-
-                if ($row_check_room['count'] > 0) {
-                    // Insert new reservation
-                    $sql = "INSERT INTO reservation_table (room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status)
-                            VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "isiiid", $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price);
-                    if (mysqli_stmt_execute($stmt)) {
-                        $message = "Reservation added successfully.";
-                    } else {
-                        $message = "An error occurred while adding reservation: " . mysqli_error($conn);
-                    }
-                } else {
-                    $message = "Invalid room selection.";
-                }
-            }
-        }
-    }
-}
-
-$sql = "SELECT * FROM reservation_table";
-$result = mysqli_query($conn, $sql);
-
-if (!$result) {
-    die("Error fetching data: " . mysqli_error($conn));
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,7 +63,7 @@ if (!$result) {
         <table class="table">
             <thead>
                 <tr>
-                    <th>Reservation ID</th>
+                    <th>Reservation_ID</th>
                     <th>User_ID</th>
                     <th>Room_ID</th>
                     <th>Check-in Date</th>
