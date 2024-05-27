@@ -66,10 +66,51 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
             <div class="content-container">
                 <div class="about-us">
-                    <h1>Contact Us</h1>
-                    <p>Welcome to our Contact Us page at LL Hotel. Whether you have questions, feedback, or need assistance, we're here to help. Reach out to our friendly staff via phone, email, or visit us at our conveniently located address. We look forward to hearing from you and assisting with your inquiries promptly and professionally.</p>
+                    <h1>Room Booking</h1>
+                    <p>Book your stay at LL Hotel effortlessly. Choose from our stylish range of rooms and suites, each equipped with modern amenities for a comfortable stay. Whether for business or leisure, enjoy convenience and personalized service throughout your reservation process. Reserve your room today for a memorable experience.</p>
 <br>
-                    <!-- Room Options in Image Container -->
+
+<!-- RESERVATION INTERFACE -->      
+
+<form action="Booking.php" method="POST" class="bookpage-form">
+    <div class="bookpage-form-group">
+        <label for="checkin">Check In</label>
+        <input type="date" id="checkin" name="checkin_date" required>
+    </div>
+    <div class="bookpage-form-group">
+        <label for="checkout">Check Out</label>
+        <input type="date" id="checkout" name="checkout_date" required>
+    </div>
+    <div class="bookpage-form-group">
+        <label for="room">Room</label>
+        <select id="room" name="roomSelect" required>
+            <option value="" disabled selected>Choose</option>
+            <option value="10">Presidential Suite</option>
+            <option value="2">Deluxe Suite</option>
+            <option value="8">Executive Room</option>
+        </select>
+    </div>
+    <div class="bookpage-form-group">
+        <label for="adult">Adult</label>
+        <input type="number" id="adult" name="adults" min="1" max="10" value="1" required>
+    </div>
+    <div class="bookpage-form-group">
+        <label for="children">Children</label>
+        <input type="number" id="children" name="children" min="0" max="10" value="0" required>
+    </div>
+    <div class="bookpage-form-group">
+        <button type="submit">Book Now</button>
+    </div>
+</form>
+
+
+
+<br>
+
+
+
+<br>
+
  
 
 

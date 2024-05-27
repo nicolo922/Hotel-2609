@@ -8467,7 +8467,7 @@ a[data-toggle="collapse"] {
 }
 
 .booking-form {
-  max-width: 800px; /* Limit width to prevent overly long lines */
+  max-width: 1000px; /* Limit width to prevent overly long lines */
   margin: auto; /* Center horizontally */
   text-align: center; /* Center text content */
 }
@@ -8675,4 +8675,79 @@ a[data-toggle="collapse"] {
   height: auto;
   display: block;
   border-radius: 8px 8px 0 0; /* Rounded corners for top of image */
+}
+
+/* BOOK PAGE  */
+
+.booking-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr; /* Image on the left, form on the right */
+    gap: 20px;
+}
+
+.picture-container {
+    width: 150px; /* Adjust the width of the picture container */
+    height: 150px; /* Adjust the height of the picture container */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.picture-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the container without stretching */
+}
+
+
+
+.bookpage-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.bookpage-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookpage-form-group label {
+  margin-bottom: 5px;
+}
+
+.bookpage-form-group select,
+.bookpage-form-group input[type="date"],
+.bookpage-form-group input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.bookpage-form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3c6930;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.bookpage-form-group button:hover {
+  background-color: #628759;
 }
