@@ -27,11 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $checkin_date = isset($_POST['checkin_date']) ? mysqli_real_escape_string($conn, $_POST['checkin_date']) : '';
         $checkout_date = isset($_POST['checkout_date']) ? mysqli_real_escape_string($conn, $_POST['checkout_date']) : '';
         $room_id = isset($_POST['roomSelect']) ? intval($_POST['roomSelect']) : 0;
-        $adults = isset($_POST['adults']) && is_numeric($_POST['adults']) && $_POST['adults'] >= 0 ? intval($_POST['adults']) : 0;
+        $adults = isset($_POST['adults']) && is_numeric($_POST['adults']) && $_POST['adults'] >= 1 ? intval($_POST['adults']) : 1;
         $children = isset($_POST['children']) && is_numeric($_POST['children']) && $_POST['children'] >= 0 ? intval($_POST['children']) : 0;
 
         // Validate inputs
-        if (!$checkin_date || !$checkout_date || !$room_id || !$adults || !$children) {
+        if (!$checkin_date || !$checkout_date || $room_id <= 0) {
             $message = "Please fill in all required fields.";
         } else {
             // Calculate total price
@@ -39,38 +39,42 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $checkout = new DateTime($checkout_date);
             $interval = $checkin->diff($checkout);
             $nights = $interval->days;
+
             $roomPrices = [
-                10 => 20000, // presidential suite
-                8 => 15000, // executive suite
-                2 => 7000, // deluxe room
+                10 => 20000, // Presidential Suite
+                8 => 15000, // Executive Suite
+                2 => 7000,  // Deluxe Room
             ];
-            $price_per_night = isset($roomPrices[$room_id]) ? $roomPrices[$room_id] : 0;
-            $total_price = $nights * $price_per_night;
 
-            // Check if the room_id exists
-            $sql_check_room = "SELECT COUNT(*) as count FROM room_table WHERE room_id = ?";
-            $stmt_check_room = mysqli_prepare($conn, $sql_check_room);
-            mysqli_stmt_bind_param($stmt_check_room, "i", $room_id);
-            mysqli_stmt_execute($stmt_check_room);
-            $result_check_room = mysqli_stmt_get_result($stmt_check_room);
-            $row_check_room = mysqli_fetch_assoc($result_check_room);
+            if (isset($roomPrices[$room_id])) {
+                $price_per_night = $roomPrices[$room_id];
+                $total_price = $nights * $price_per_night;
 
-            if ($row_check_room['count'] > 0) {
-                // Insert new reservation
-                $sql = "INSERT INTO reservation_table (room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status)
-                VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
-                $stmt = mysqli_prepare($conn, $sql);
-                mysqli_stmt_bind_param($stmt, "isiiid", $room_id, $checkin_date, $checkout_date, $adults, $children, $total_price);
-                if (mysqli_stmt_execute($stmt)) {
-                    $message = "Reservation added successfully.";
-                } else {
-                    $message = "An error occurred while adding reservation: " . mysqli_error($conn);
-                }
+                // Check if the room_id exists in the room_table
+                $sql_check_room = "SELECT COUNT(*) as count FROM room_table WHERE room_id = ?";
+                $stmt_check_room = mysqli_prepare($conn, $sql_check_room);
+                mysqli_stmt_bind_param($stmt_check_room, "i", $room_id);
+                mysqli_stmt_execute($stmt_check_room);
+                $result_check_room = mysqli_stmt_get_result($stmt_check_room);
+                $row_check_room = mysqli_fetch_assoc($result_check_room);
+
+                if ($row_check_room['count'] > 0) {
+                    // Insert new reservation
+                    $sql = "INSERT INTO reservation_table (room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status)
+                            VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "isiiid", $room_id, $checkin_date, $checkout_date, $adults, $children, $total_price);
+                    if (mysqli_stmt_execute($stmt)) {
+                        $message = "Reservation added successfully.";
+                    } else {
+                        $message = "An error occurred while adding reservation: " . mysqli_error($conn);
+                    }
             } else {
-                $message = "Invalid room ID.";
+                $message = "Invalid room selection.";
             }
         }
     }
+}
 }
 
 // Fetch data from the database
@@ -143,8 +147,8 @@ if (!$result) {
             <thead>
                 <tr>
                     <th>Reservation ID</th>
-                    <th>User ID</th>
-                    <th>Room ID</th>
+                    <th>User_ID</th>
+                    <th>Room_ID</th>
                     <th>Check-in Date</th>
                     <th>Check-out Date</th>
                     <th>Total Price</th>
@@ -160,20 +164,20 @@ if (!$result) {
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td>" . (isset($row["reservation_id"]) ? $row["reservation_id"] : "") . "</td>";
-                        echo "<td>" . (isset($row["user_id"]) ? $row["user_id"] : "") . "</td>";
-                        echo "<td>" . (isset($row["room_id"]) ? $row["room_id"] : "") . "</td>";
-                        echo "<td>" . (isset($row["check_in_date"]) ? $row["check_in_date"] : "") . "</td>";
-                        echo "<td>" . (isset($row["check_out_date"]) ? $row["check_out_date"] : "") . "</td>";
-                        echo "<td>" . (isset($row["adults"]) ? $row["adults"] : "") . "</td>";
-                        echo "<td>" . (isset($row["children"]) ? $row["children"] : "") . "</td>";
-                        echo "<td>" . (isset($row["total_price"]) ? $row["total_price"] : "") . "</td>";
-                        echo "<td>" . (isset($row["reservation_status"]) ? $row["reservation_status"] : "") . "</td>";
+                        echo "<td>" . htmlspecialchars($row["reservation_id"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["user_id"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["room_id"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["check_in_date"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["check_out_date"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["total_price"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["reservation_status"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["adults"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["children"]) . "</td>";
                         echo "<td>";
                         ?>
                         <!-- Accept/Decline Buttons Form -->
-                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                            <input type="hidden" name="reservation_id" value="<?php echo $row["reservation_id"]; ?>">
+                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+                            <input type="hidden" name="reservation_id" value="<?php echo htmlspecialchars($row["reservation_id"]); ?>">
                             <button type="submit" name="accept" class="btn btn-success">Accept</button>
                             <button type="submit" name="declined" class="btn btn-danger">Decline</button>
                         </form>
