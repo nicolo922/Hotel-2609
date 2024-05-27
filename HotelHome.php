@@ -68,9 +68,11 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <div class="content-container">
           <!-- Hotel Description -->
           <div class="hotel-description">
-            <h1>Welcome to Our Hotel</h1>
-            <p>Experience luxury at its finest in our hotel. With world-class amenities and breathtaking views, we guarantee a memorable stay.</p>
+            <h1>Welcome to LL Hotel</h1>
+            <p>Experience unparalleled luxury at LL Hotel. With world-class amenities and breathtaking views, we guarantee an unforgettable stay.</p>
           </div>
+
+          <br>
 
 
 <!-- RESERVATION INTERFACE -->      
@@ -106,6 +108,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
 </form>
 
+<br>
 
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
