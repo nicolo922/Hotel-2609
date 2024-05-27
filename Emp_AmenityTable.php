@@ -44,7 +44,7 @@
                 <!-- Title Description -->
                 <div class="hotel-description">
                     <h1>Amenities Table</h1>
-                    <p>You are in Emploee View</p>
+                    <p>You are in Employee View</p>
 					
                 </div>
                 <br>
