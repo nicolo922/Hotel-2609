@@ -1,66 +1,70 @@
 <?php
 session_start();
-include 'dbconnect.php'; // Ensure this file contains the correct database connection setup
+include 'dbconnect.php';
+
+$message = '';
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve form data
-    $user_id = $_SESSION['user_id']; // Assuming user is logged in and user_id is stored in session
+    $user_id = $_SESSION['user_id'];
     $room_id = $_POST['roomSelect'];
     $check_in_date = $_POST['checkin_date'];
     $check_out_date = $_POST['checkout_date'];
     $adults = $_POST['adults'];
     $children = $_POST['children'];
 
-    // Validate room_id
     $stmt = $conn->prepare("SELECT COUNT(*) FROM room_table WHERE room_id = ?");
-    $stmt->bind_param("i", $room_id);
-    $stmt->execute();
-    $stmt->bind_result($room_count);
-    $stmt->fetch();
-    $stmt->close();
+    if ($stmt) {
+        $stmt->bind_param("i", $room_id);
+        $stmt->execute();
+        $stmt->bind_result($room_count);
+        $stmt->fetch();
+        $stmt->close();
+    } else {
+        $message = "Error preparing statement: " . $conn->error;
+    }
 
     if ($room_count == 0) {
         $message = "Invalid room selection.";
     } else {
-        // Calculate total price
         $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
-    
-        // Set reservation status
         $reservation_status = 'Pending';
-    
-        // Insert reservation into database
+
         $stmt = $conn->prepare("INSERT INTO reservation_table (user_id, room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status) 
-                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price, $reservation_status);
-    
-        if ($stmt->execute()) {
-            $message = "Reservation successful!";
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        if ($stmt) {
+            $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price, $reservation_status);
+            if ($stmt->execute()) {
+                $message = "Reservation successful!";
+            } else {
+                $message = "Error executing statement: " . $stmt->error;
+            }
+            $stmt->close();
         } else {
-            $message = "Error: " . $stmt->error;
+            $message = "Error preparing statement: " . $conn->error;
         }
-    
-        $stmt->close();
     }
-    
 
     $conn->close();
 }
 
 function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
-    // Dummy pricing logic for illustration
     $roomPrices = [
-        10 => 20000, // Presidential Suite
-        8 => 15000, // Executive Suite
-        2 => 7000,  // Deluxe Room
+        10 => 20000,
+        8 => 15000,
+        2 => 7000,
     ];
 
     if (!isset($roomPrices[$room_id])) {
-        return 0; // Invalid room_id
+        return 0;
     }
 
     $room_price = $roomPrices[$room_id];
     $num_nights = (strtotime($check_out_date) - strtotime($check_in_date)) / (60 * 60 * 24);
-    return $room_price * $num_nights * ($adults + ($children * 0.5)); // Example calculation
+    return $room_price * $num_nights * ($adults + ($children * 0.5));
 }
 ?>
 
