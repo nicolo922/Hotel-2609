@@ -49,19 +49,55 @@
             <thead>
                 <tr>
                     <th>Reservation ID</th>
+                    <th>Room Type</th>
                     <th>Check-in Date</th>
                     <th>Check-out Date</th>
-                    <th>Room Type</th>
-                    <th>Adults</th>
-                    <th>Children</th>
+                    <th>Total Price</th>
+                    <th>Reservation Status</th>
                 </tr>
             </thead>    
-        
-    <?php
 
+            <tbody>
+            <?php
+            include 'dbconnect.php';
 
+            // Check database connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
 
-    ?>
+            // Fetch data from the database
+            $sql = "SELECT * FROM reservation_table";
+            $result = mysqli_query($conn, $sql);
+
+            // Check for SQL query errors
+            if (!$result) {
+                die("Error fetching data: " . mysqli_error($conn));
+            }
+
+            // Display data in HTML table
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row["reservation_id"] . "</td>";
+                    echo "<td>" . $row["room_type"] . "</td>";
+                    echo "<td>" . $row["check_in_date"] . "</td>";
+                    echo "<td>" . $row["check_out_date"] . "</td>";
+                    echo "<td>" . $row["total_price"] . "</td>";
+                    echo "<td>" . $row["reservation_status"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='6'>No records found</td></tr>";
+            }
+
+            mysqli_close($conn);
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>

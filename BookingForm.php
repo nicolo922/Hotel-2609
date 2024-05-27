@@ -127,61 +127,56 @@ body {
 
 <body>
     <div class="reservation-container">
-        <h1>Reservation Details</h1>
-        <form action="ReservationTable.php" method="post">
-            <div class="form-group">
-                <label for="checkin-date">Check-in Date</label>
-                <input type="date" id="checkin-date" name="checkin-date">
-            </div>
-            <div class="form-group">
-                <label for="checkout-date">Check-out Date</label>
-                <input type="date" id="checkout-date" name="checkout-date">
-            </div>
-            <div class="form-group guests">
-                <div>
-                    <label for="adults">Adults</label>
-                    <select id="adults" name="adults">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="children">Children</label>
-                    <select id="children" name="children">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="room">Select Room/Suite</label>
-                <select id="room" name="room">
-                    <option value="" disabled selected>Choose</option>
-                    <option value="presidential">Presidential Suite</option>
-                    <option value="deluxe">Deluxe Suite</option>
-                    <option value="executive">Executive Room</option>
-                </select>
-            </div>
-            <button type="submit">Confirm Booking</button>
-        </form>
+    <h2>Booking Form</h2>
+    <form action="BookingProcess.php" method="POST">
+        <label for="checkin_date">Check-in Date:</label>
+        <input type="date" id="checkin_date" name="checkin_date" required><br><br>
+        
+        <label for="checkout_date">Check-out Date:</label>
+        <input type="date" id="checkout_date" name="checkout_date" required><br><br>
+        
+        <label for="roomSelect">Room Type:</label>
+        <select id="roomSelect" name="roomSelect" required>
+            <option value="10">Presidential Suite</option>
+            <option value="8">Executive Suite</option>
+            <option value="2">Deluxe Room</option>
+        </select><br><br>
+        
+        <label for="adults">Adults:</label>
+        <input type="number" id="adults" name="adults" min="1"><br><br>
+        
+        <label for="children">Children:</label>
+        <input type="number" id="children" name="children" min="0"><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
     </div>
+
+    <?php
+
+    include 'dbconnect.php';
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT room_type FROM room_table";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        die("Error fetching data: " . mysqli_error($conn));
+    }
+
+    if (isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+        $sqlLogs = "SELECT action FROM logs_table WHERE user_id = '$user_id' AND action = 'Logged In'";
+        if (!$result) {
+            die("Error fetching data: " . mysqli_error($conn));
+        }
+    }
+    if (!$result) {
+        die("Error fetching data: " . mysqli_error($conn));
+    }
+    ?>
 </body>
 </html>
