@@ -260,7 +260,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <h3>Contact Us</h3>
         <p>Email: llhotel.com</p>
         <p>Phone: +1234567890</p>
-        <p>Address: 123 Main Street, Big Red Sport, Jupiter</p>
+        <p>Address: 123 Main Street, Big Red Spot, Jupiter</p>
       </div>
       <div class="col-md-4 text-center">
         <h3>Follow Us</h3>

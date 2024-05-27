@@ -8354,26 +8354,26 @@ a[data-toggle="collapse"] {
   /*Added Styles*/
 
   .image-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px; /* Adjust the gap between items */
   }
-
+  
   .image-container > div {
-    flex: 1;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
   }
-
+  
   .image-container > div img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 8px 8px 0 0; /* Rounded corners for top of image */
   }
+  
 
   .room-description {
     padding: 15px 10px;

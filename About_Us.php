@@ -29,7 +29,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </button>
         </div>
         <div class="p-4">
-          <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+          <h1><a href="Costumer_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
           <ul class="list-unstyled components mb-5">
             <li class="active">
               <a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
@@ -70,7 +70,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             
               <div class="owner">
               <a href="https://www.facebook.com/HiAkoSiLorenz" target="_blank">
-                <img src="images/renzy.jpg" alt="Owner 1">
+                <img src="images/ralph.jpg" alt="Laurenz Briones">
                 </a>
 
                 <h3>Laurenz Nicolo T. Briones</h3>
@@ -80,7 +80,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
               <div class="owner">
               <a href="https://www.facebook.com/renzy.briones.9" target="_blank">
-                <img src="images/renzy.jpg" alt="Owner 2">
+                <img src="images/renzy.jpg" alt="Lorenz Bonifacio">
                 </a>
                 <h3>Ralph Lorenz M. Bonifacio</h3>
                 <p>Ralph Lorenz M. Bonifacio brings a wealth of knowledge and expertise in luxury hotel management to LL Hotel. His career is marked by a relentless pursuit of excellence and a dedication to creating memorable guest experiences. With a keen eye for detail and a deep understanding of guest needs, Ralph has played a pivotal role in establishing LL Hotel as a premier destination for discerning travelers. His commitment to quality and personalized service ensures that every guest feels valued and enjoys a truly unique and memorable stay.</p>
