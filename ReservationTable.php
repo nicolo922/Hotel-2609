@@ -19,28 +19,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->fetch();
     $stmt->close();
 
-    if ($room_count > 0) {
+    if ($room_count == 0) {
         $message = "Invalid room selection.";
     } else {
         // Calculate total price
         $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
-
+    
         // Set reservation status
         $reservation_status = 'Pending';
-
+    
         // Insert reservation into database
         $stmt = $conn->prepare("INSERT INTO reservation_table (user_id, room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status) 
-                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price, $reservation_status);
-
+    
         if ($stmt->execute()) {
             $message = "Reservation successful!";
         } else {
             $message = "Error: " . $stmt->error;
         }
-
+    
         $stmt->close();
     }
+    
 
     $conn->close();
 }
