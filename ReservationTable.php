@@ -131,6 +131,7 @@ if (!$result) {
     </nav>
 
     <!-- Main Content -->
+    <div id="content" class="p-4 p-md-5 pt-5">
     <div class="container mt-5">
         <h2>Reservation Table</h2>
         <p>You are in Admin View</p>
@@ -139,7 +140,7 @@ if (!$result) {
             <div class="alert alert-info"><?php echo $message; ?></div>
         <?php endif; ?>
         <!-- Display Reservation Table -->
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Reservation ID</th>

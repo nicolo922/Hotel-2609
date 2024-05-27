@@ -21,86 +21,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
   </head>
 
-  <style>
-    /* Styles for the slideshow */
-    .slideshow-container {
-      position: relative;
-      max-width: 800px;
-      margin: auto;
-    }
-    .slide {
-      display: none;
-      text-align: center;
-    }
-    .slide img {
-      max-width: 100%;
-      height: auto;
-    }
-    .slide .room-description {
-      margin-top: 20px;
-    }
-    /* Style for controls */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
 
-    .booking-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 1000px;
-}
-
-.booking-form div {
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
-}
-
-.booking-form input[type="date"],
-.booking-form select,
-.booking-form input[type="number"],
-.booking-form button {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.booking-form button {
-    background-color: #0B6623;
-    color: white;
-    cursor: pointer;
-    border: none;
-}
-
-.booking-form button:hover {
-    background-color: #006880;
-}
-  </style>
 
   <body>
     <div class="wrapper d-flex align-items-stretch">
@@ -181,7 +102,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <input type="number" id="children" name="children" min="0" max="10" value="0">
     </div>
     <div>
-        <button type="submit">Check Availability</button>
+        <button type="submit">Book Now</button>
     </div>
 </form>
 
@@ -220,6 +141,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 <br>
 <br>
+
 <!-- Amenities Options in Image Container -->
 <h3>Explore our Amenities</h3>
 
