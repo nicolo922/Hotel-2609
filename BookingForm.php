@@ -128,7 +128,7 @@ body {
 <body>
     <div class="reservation-container">
         <h1>Reservation Details</h1>
-        <form action="submit_reservation.php" method="post">
+        <form action="ReservationTable.php" method="post">
             <div class="form-group">
                 <label for="checkin-date">Check-in Date</label>
                 <input type="date" id="checkin-date" name="checkin-date">

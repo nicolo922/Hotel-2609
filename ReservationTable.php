@@ -55,68 +55,13 @@
                     <th>Adults</th>
                     <th>Children</th>
                 </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Include database connection
-                include 'dbconnect.php';
+            </thead>    
+        
+    <?php
 
-                // Initialize variables
-                $checkin = $checkout = $room = $adult = $children = "";
-                $checkinErr = $checkoutErr = "";
 
-                // Handle form submission
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book_now"])) {
-                    // Validate and sanitize input
-                    $checkin = test_input($_POST['checkin']);
-                    $checkout = test_input($_POST['checkout']);
-                    $room = test_input($_POST['room']);
-                    $adult = test_input($_POST['adult']);
-                    $children = test_input($_POST['children']);
 
-                    // Perform SQL query to insert data into reservation table
-                    $sql = "INSERT INTO reservation_table (check_in_date, check_out_date, room_type, adults, children) 
-                            VALUES ('$checkin', '$checkout', '$room', '$adult', '$children')";
-
-                    // Execute SQL query
-                    if ($conn->query($sql) === TRUE) {
-                        echo "<p>Reservation successful!</p>";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
-                }
-
-                // Function to sanitize input data
-                function test_input($data) {
-                    $data = trim($data);
-                    $data = stripslashes($data);
-                    $data = htmlspecialchars($data);
-                    return $data;
-                }
-
-                // Display reservations table
-                $sql = "SELECT * FROM reservation_table";
-                $result = $conn->query($sql);
-
-                if ($result !== false && $result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>".$row["reservation_id"]."</td>";
-                        echo "<td>".$row["check_in_date"]."</td>";
-                        echo "<td>".$row["check_out_date"]."</td>";
-                        echo "<td>".$row["room_type"]."</td>";
-                        echo "<td>".$row["adults"]."</td>";
-                        echo "<td>".$row["children"]."</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='6'>No reservations found</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+    ?>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>
