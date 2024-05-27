@@ -8546,3 +8546,39 @@ a[data-toggle="collapse"] {
 .booking-form button:hover {
     background-color: #628759;
 }
+
+    /* ABOUT US */
+
+    .about-us {
+      text-align: center;
+      margin-bottom: 50px;
+      max-width: 1000px; /* Set a maximum width */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .owner-photos {
+      display: flex;
+      justify-content: center;
+      gap: 60px; /* Reduce the gap between the owners */
+      margin-top: 30px;
+    }
+    .owner {
+      max-width: 350px;
+      text-align: justify;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+    .owner:hover {
+      border-color: #3c6930; /* Change border color on hover */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase box shadow on hover */
+    }
+    .owner img {
+      width: 100%;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+  
