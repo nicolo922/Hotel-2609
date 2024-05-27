@@ -20,7 +20,11 @@
             </div>
             <div class="p-4">
                 <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png" alt="Logo"></a></h1>
-                <h4>Admin View</h4>
+
+                <div class="showusertype">
+        <h6>Welcome Admin!</h6>
+    </div>
+	
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
                         <a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>

@@ -22,16 +22,21 @@
 					</button>
 				</div>
 				<div class="p-4">
-					<h1><a href="Emp_HotelHome.php" class="logo"><img src="images/logohotel.png"></h1> 
+                <h1><a href="Emp_RoomTable.php" class="logo"><img src="images/logohotel.png"></a></h1>
+
+                <div class="showusertype">
+        <h6>Welcome Employee!</h6>
+    </div>
+	
 					<ul class="list-unstyled components mb-5">
 						<li>
-							<a href="RoomTable.php"><span class="fa fa-briefcase mr-3"></span> Rooms Table</a>
+							<a href="Emp_RoomTable.php"><span class="fa fa-briefcase mr-3"></span> Rooms Table</a>
 						</li>
 						<li class="active">
-							<a href="ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
+							<a href="Emp_ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
 						</li>
 						<li>
-							<a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
+							<a href="Emp_AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
 						</li>
 						<li>
 							<a href="Login.php"><span class="fa fa-sign-out mr-3"></span> Logout</a>
