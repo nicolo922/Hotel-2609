@@ -35,15 +35,21 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         </div>
         <div class="p-4">
         <h1><a href="Costumer_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+
+        <div class="showusertype">
+        <h6>Welcome Dear Costumer!</h6>
+        <p id="datetime"></p>
+    </div>
+
           <ul class="list-unstyled components mb-5">
             <li class="active">
               <a href="Costumer_HotelHome.php"><span class="fa fa-home mr-3"></span>Home</a>
             </li>
             <li>
-              <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Room</a>
+              <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Rooms</a>
             </li>
             <li>
-              <a href="Amenities"><span class="fa fa-briefcase mr-3"></span>Amenities</a>
+              <a href="Amenities.php"><span class="fa fa-briefcase mr-3"></span>Amenities</a>
             </li>
             <li>
               <a href="Booking.php"><span class="fa fa-sticky-note mr-3"></span>Book Now</a>
@@ -105,6 +111,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <input type="number" id="children" name="children" min="0" max="10" value="0" required>
     </div>
     <div>
+      
         <button type="submit">Book Now</button>
     </div>
 </form>
@@ -185,7 +192,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
   <div class="slideshow-container">
     <div class="slide">
-      <div class="image-container">
+      <div class="resto-box">
         <div>
           <img src="images/resto1.jpg" alt="Ravin's Steakhouse">
           <div class="room-description">
@@ -197,7 +204,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
     
     <div class="slide">
-      <div class="image-container">
+      <div class="resto-box">
         <div>
           <img src="images/resto2.jpg" alt="Marko's Sushi Bar">
           <div class="room-description">
@@ -209,7 +216,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
     
     <div class="slide">
-      <div class="image-container">
+      <div class="resto-box">
         <div>
           <img src="images/resto3.jpg" alt="Jason's Buffet">
           <div class="room-description">
@@ -221,7 +228,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
     
     <div class="slide">
-      <div class="image-container">
+      <div class="resto-box">
         <div>
           <img src="images/resto4.jpg" alt="Kirby's Filipino Resto">
           <div class="room-description">
@@ -233,7 +240,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
     
     <div class="slide">
-      <div class="image-container">
+      <div class="resto-box">
         <div>
           <img src="images/resto5.jpg" alt="Cassey's Pool Cafe">
           <div class="room-description">
@@ -280,6 +287,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
   </div>
 </footer>
+  </div>
 
 
 
@@ -302,6 +310,31 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
       slides[slideIndex - 1].style.display = "block";
     }
   </script>
+
+<script>
+    function displayDateTime() {
+        const now = new Date();
+        const datetimeElement = document.getElementById('datetime');
+        const options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false // Use 24-hour format
+        };
+        const formattedDateTime = now.toLocaleDateString('en-US', options);
+        datetimeElement.textContent = formattedDateTime;
+    }
+
+    // Call displayDateTime once when the page loads
+    displayDateTime();
+
+    // Update time every second
+    setInterval(displayDateTime, 1000);
+</script>
+
 
 
     <script src="js/jquery.min.js"></script>

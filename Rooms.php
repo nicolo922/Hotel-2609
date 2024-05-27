@@ -63,22 +63,44 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
-
+            <!-- About Us Section -->
             <div class="content-container">
                 <div class="about-us">
-                    <h1>Contact Us</h1>
-                    <p>Welcome to our Contact Us page at LL Hotel. Whether you have questions, feedback, or need assistance, we're here to help. Reach out to our friendly staff via phone, email, or visit us at our conveniently located address. We look forward to hearing from you and assisting with your inquiries promptly and professionally.</p>
+                    <h1>Rooms</h1>
+                    <p>LL Hotel offers a range of luxurious and comfortable rooms designed to make your stay memorable. From cozy single rooms to spacious double rooms and elegant suites, each accommodation features modern amenities, plush bedding, high-speed internet, and flat-screen TVs. Enjoy stunning views, room service, and complimentary toiletries. Discover the perfect retreat for your next visit at LL Hotel, where your comfort is our priority.</p>
 <br>
                     <!-- Room Options in Image Container -->
  
+                        <div class="room-gallery">
+                            <?php
+                            include 'dbconnect.php';
 
+                            // Execute a new query to fetch all room details
+                            $sql = "SELECT * FROM room_table";
+                            $result = mysqli_query($conn, $sql);
 
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<div>';
+                                    echo '<img src="' . $row['image_url'] . '" alt="Room Image">';
+                                    echo '<div class="room-description">';
+                                    echo '<h2>' . $row['room_type'] . '</h2>';
+                                    echo '<p>' . $row['description'] . '</p>';
+                                    echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
+                                    echo '<h2> ₱' . $row['price_per_night'] . ' <span>/ Day</span><h2>';
+                                    echo '</div>'; // Close room-description div
+                                    echo '</div>'; // Close main div for this room
+                                }
+                            } else {
+                                echo "No rooms found.";
+                            }
 
-
-
-
-<br>
-<br>
+                            mysqli_close($conn);
+                            ?>
+                        </div>
+                    
+                </div>
+            </div>
 
             <!-- Footer -->
             <footer class="footer">
@@ -110,8 +132,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             </footer>
         </div>
     </div>
-
-
     <script>
     function displayDateTime() {
         const now = new Date();
