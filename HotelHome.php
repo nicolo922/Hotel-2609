@@ -2,7 +2,8 @@
 session_start();
 
 if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-
+  header("Location: Login.php");
+  exit();
 }
 ?>
 
@@ -80,28 +81,28 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 <form action="ReservationTable.php" method="POST" class="booking-form">
     <div>
         <label for="checkin">Check In</label>
-        <input type="date" id="checkin" name="checkin">
+        <input type="date" id="checkin" name="checkin_date" required>
     </div>
     <div>
         <label for="checkout">Check Out</label>
-        <input type="date" id="checkout" name="checkout">
+        <input type="date" id="checkout" name="checkout_date" required>
     </div>
     <div>
         <label for="room">Room</label>
-        <select id="room" name="room">
+        <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
-            <option value="presidential">Presidential Suite</option>
-            <option value="deluxe">Deluxe Suite</option>
-            <option value="executive">Executive Room</option>
+            <option value="10">Presidential Suite</option> <!-- Ensure these values match your room IDs -->
+            <option value="2">Deluxe Suite</option>
+            <option value="8">Executive Room</option>
         </select>
     </div>
     <div>
         <label for="adult">Adult</label>
-        <input type="number" id="adult" name="adult" min="1" max="10" value="1">
+        <input type="number" id="adult" name="adults" min="1" max="10" value="1" required>
     </div>
     <div>
         <label for="children">Children</label>
-        <input type="number" id="children" name="children" min="0" max="10" value="0">
+        <input type="number" id="children" name="children" min="0" max="10" value="0" required>
     </div>
     <div>
         <button type="submit">Book Now</button>
@@ -109,6 +110,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 </form>
 
 <br>
+
 
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
@@ -130,7 +132,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             echo '<h2>' . $row['room_type'] . '</h2>';
             echo '<p>' . $row['description'] . '</p>';
             echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
-            echo '<h2>₱' . $row['price_per_night'] . ' <span>/ Day</span><h2>';
+            echo '<h2> ₱' . $row['price_per_night'] . ' <span>/ Day</span><h2>';
             echo '</div>'; // Close room-description div
             echo '</div>'; // Close main div for this room
         }
@@ -175,9 +177,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     mysqli_close($conn);
     ?>
 </div>
-
-
-
         <br>
         <br>
         <br>
