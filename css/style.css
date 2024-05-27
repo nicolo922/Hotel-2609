@@ -8419,3 +8419,44 @@ a[data-toggle="collapse"] {
     text-align: center;
     margin-top: 20px; /* Optional: Adjust margin as needed */
   }
+
+  /*Booking Reservation*/
+
+  .booking-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.booking-form div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.booking-form input[type="date"],
+.booking-form select,
+.booking-form input[type="number"],
+.booking-form button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.booking-form button {
+    background-color: #007B8F;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.booking-form button:hover {
+    background-color: #006880;
+}

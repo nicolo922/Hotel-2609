@@ -61,6 +61,45 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     .prev:hover, .next:hover {
       background-color: rgba(0, 0, 0, 0.8);
     }
+
+    .booking-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.booking-form div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.booking-form input[type="date"],
+.booking-form select,
+.booking-form input[type="number"],
+.booking-form button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.booking-form button {
+    background-color: #0B6623;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.booking-form button:hover {
+    background-color: #006880;
+}
   </style>
 
   <body>
@@ -109,6 +148,36 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 <!-- RESERVATION INTERFACE -->          
 
+<div class="booking-form">
+    <div>
+        <label for="checkin">Check In</label>
+        <input type="date" id="checkin" name="checkin">
+    </div>
+    <div>
+        <label for="checkout">Check Out</label>
+        <input type="date" id="checkout" name="checkout">
+    </div>
+    <div>
+        <label for="room">Room</label>
+        <select id="room" name="room">
+        <option value="" disabled selected>Choose</option>
+            <option value="presidential">Presidential Suite</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="executive">Executive Room</option>
+        </select>
+    </div>
+    <div>
+        <label for="adult">Adult</label>
+        <input type="number" id="adult" name="adult" min="1" max="10" value="1">
+    </div>
+    <div>
+        <label for="children">Children</label>
+        <input type="number" id="children" name="children" min="0" max="10" value="0">
+    </div>
+    <div>
+        <button type="submit">Check Availability</button>
+    </div>
+</div>
 
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
