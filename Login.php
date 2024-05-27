@@ -17,11 +17,11 @@
     }
 
     body{
-        background: #dfe9f5;
+        background: #fbf6ee;
     }
 
     .wrapper{
-        width: 320px;
+        width: 450px;
         padding: 2rem 1rem;
         margin: 50px auto;
         background-color: #fff;
@@ -42,7 +42,7 @@
         border: 1px solid #fff;
         padding: 12px 20px;
         margin-bottom: 10px;
-        border-radius: 20px;
+        border-radius: 5px;
         background: #e4e4e4;
     }
 
@@ -50,17 +50,17 @@
         font-size: 1rem;
         margin-top: 1.8rem;
         padding: 10px 0;
-        border-radius: 20px;
+        border-radius: 10px;
         outline: none;
         border: none;
         width: 90%;
         color: #fff;
         cursor: pointer;
-        background: rgb(17, 107, 143);
+        background: #3c6930;
     }
 
     button:hover{
-        background: rgba(17, 107, 143, 0.877);
+        background: #628759;;
     }
 
     input:focus{
@@ -110,9 +110,26 @@
         color: #464647;
     }
 
+    .logo {
+    text-align: center; /* Center aligns its child elements */
+}
+
+.logo img {
+    max-width: 300px; 
+    height: auto;
+    padding-top: 50px; /* Add padding to the top */
+    padding-bottom: 0; /* No padding at the bottom */
+}
+
+
+
+
 </style>
 
+<p class="logo"><img src="images/logohotel.png"></p>
+
 <body>
+
 <div class="wrapper">
     <h1>Login</h1>
     <form method="POST" action="">
