@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
         $reservation_status = 'Pending';
 
-        $stmt = $conn->prepare("INSERT INTO reservation_table (user_id, room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO reservation_table (user_id, room_id, check_in_date, check_out_date, total_price, reservation_status, adults, children, room_type) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         if ($stmt) {
-            $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price, $reservation_status);
+            $stmt->bind_param("iissiiis", $user_id, $room_id, $check_in_date, $check_out_date, $total_price, $reservation_status, $adults, $children, $room_type);
             if ($stmt->execute()) {
                 $message = "Reservation successful!";
             } else {
@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
     $roomPrices = [
-        10 => 20000,
-        8 => 15000,
-        2 => 7000,
+        3 => 20000,
+        2 => 15000,
+        1 => 7000,
     ];
 
     if (!isset($roomPrices[$room_id])) {
@@ -139,6 +139,8 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
                         <th>Reservation Status</th>
                         <th>Adults</th>
                         <th>Children</th>
+                        <th>Room_Type</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -166,6 +168,7 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
                         echo "<td>" . $row['reservation_status'] . "</td>";
                         echo "<td>" . $row['adults'] . "</td>";
                         echo "<td>" . $row['children'] . "</td>";
+                        echo "<td>" . $row['room_type'] . "</td>";
                         echo "</tr>";
                     }
 
