@@ -34,25 +34,25 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </button>
         </div>
         <div class="p-4">
-        <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+        <h1><a href="Costumer_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
           <ul class="list-unstyled components mb-5">
             <li class="active">
-              <a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
+              <a href="Costumer_HotelHome.php"><span class="fa fa-home mr-3"></span>Home</a>
             </li>
             <li>
-              <a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
+              <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Room</a>
             </li>
             <li>
-              <a href="RoomTable.php"><span class="fa fa-briefcase mr-3"></span> Rooms Table</a>
+              <a href="Amenities"><span class="fa fa-briefcase mr-3"></span>Amenities</a>
             </li>
             <li>
-              <a href="ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
+              <a href="Booking.php"><span class="fa fa-sticky-note mr-3"></span>Book Now</a>
             </li>
             <li>
-              <a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
+              <a href="About_Us.php"><span class="fa fa-paper-plane mr-3"></span>About Us</a>
             </li>
             <li>
-                <a href="Logs.php"><span class="fa fa-paper-plane mr-3"></span> Logs</a>
+                <a href="Contact_Us.php"><span class="fa fa-paper-plane mr-3"></span>Conact Us</a>
             </li>
             <li>
               <a href="Login.php"><span class="fa fa-sign-out mr-3"></span> Logout</a>
@@ -250,6 +250,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
   </div>
 
     <!-- FOOTER -->
+<br>
 <br>
 
   <footer class="footer">

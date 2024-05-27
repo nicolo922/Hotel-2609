@@ -62,6 +62,8 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
     return $room_price * $num_nights * ($adults + ($children * 0.5)); // Example calculation
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
