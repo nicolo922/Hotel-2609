@@ -181,7 +181,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <input type="number" id="children" name="children" min="0" max="10" value="0">
     </div>
     <div>
-        <button type="submit">Check Availability</button>
+        <button type="submit">Book Now</button>
     </div>
 </form>
 
