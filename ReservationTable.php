@@ -133,6 +133,7 @@ if (!$result) {
     <!-- Main Content -->
     <div class="container mt-5">
         <h2>Reservation Table</h2>
+        <p>You are in Admin View</p>
         <!-- Display Success or Error Messages -->
         <?php if (!empty($message)): ?>
             <div class="alert alert-info"><?php echo $message; ?></div>
