@@ -148,10 +148,10 @@ if (!$result) {
                     <th>Room ID</th>
                     <th>Check-in Date</th>
                     <th>Check-out Date</th>
-                    <th>Adults</th>
-                    <th>Children</th>
                     <th>Total Price</th>
                     <th>Reservation Status</th>
+                    <th>Adults</th>
+                    <th>Children</th>
                     <th>Action</th>
                 </tr>
             </thead>
