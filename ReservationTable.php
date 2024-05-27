@@ -3,10 +3,8 @@ include 'dbconnect.php';
 
 $message = '';
 
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['accept']) || isset($_POST['declined'])) {
-        // Update reservation status
         $reservation_id = isset($_POST['reservation_id']) ? intval($_POST['reservation_id']) : 0;
 
         if ($reservation_id > 0) {
@@ -23,21 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $message = "Invalid reservation ID.";
         }
     } else {
-        // Add new reservation
-        $check_in_date = isset($_POST['check_in_date']) ? mysqli_real_escape_string($conn, $_POST['check_in_date']) : '';
-        $check_out_date = isset($_POST['check_out_date']) ? mysqli_real_escape_string($conn, $_POST['check_out_date']) : '';
+        $check_in_date = isset($_POST['check_in_date']) ? $_POST['check_in_date'] : '';
+        $check_out_date = isset($_POST['check_out_date']) ? $_POST['check_out_date'] : '';
         $room_id = isset($_POST['roomSelect']) ? intval($_POST['roomSelect']) : 0;
-        $adults = isset($_POST['adults']) && is_numeric($_POST['adults']) && $_POST['adults'] >= 1 ? intval($_POST['adults']) : 1;
-        $children = isset($_POST['children']) && is_numeric($_POST['children']) && $_POST['children'] >= 0 ? intval($_POST['children']) : 0;
+        $adults = isset($_POST['adults']) ? intval($_POST['adults']) : 1;
+        $children = isset($_POST['children']) ? intval($_POST['children']) : 0;
 
-        // Validate inputs
         if (!$check_in_date || !$check_out_date || $room_id <= 0) {
             $message = "Please fill in all required fields.";
         } else {
             // Calculate total price
             $check_in_date = new DateTime($check_in_date);
             $check_out_date = new DateTime($check_out_date);
-            $interval = $checkin->diff($checkout);
+            $interval = $check_in_date->diff($check_out_date);
             $nights = $interval->days;
 
             $roomPrices = [
@@ -69,19 +65,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     } else {
                         $message = "An error occurred while adding reservation: " . mysqli_error($conn);
                     }
-            } else {
-                $message = "Invalid room selection.";
+                } else {
+                    $message = "Invalid room selection.";
+                }
             }
         }
     }
 }
-}
 
-// Fetch data from the database
 $sql = "SELECT * FROM reservation_table";
 $result = mysqli_query($conn, $sql);
 
-// Check for SQL query errors
 if (!$result) {
     die("Error fetching data: " . mysqli_error($conn));
 }
@@ -161,7 +155,6 @@ if (!$result) {
             </thead>
             <tbody>
                 <?php
-                // Display data in HTML table
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
@@ -176,7 +169,6 @@ if (!$result) {
                         echo "<td>" . htmlspecialchars($row["children"]) . "</td>";
                         echo "<td>";
                         ?>
-                        <!-- Accept/Decline Buttons Form -->
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                             <input type="hidden" name="reservation_id" value="<?php echo htmlspecialchars($row["reservation_id"]); ?>">
                             <button type="submit" name="accept" class="btn btn-success">Accept</button>
@@ -203,3 +195,5 @@ if (!$result) {
 <script src="js/main.js"></script>
 </body>
 </html>
+
+                   
