@@ -174,9 +174,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     mysqli_close($conn);
     ?>
 </div>
-
-
-
         <br>
         <br>
         <br>

@@ -24,19 +24,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         }
     } else {
         // Add new reservation
-        $checkin_date = isset($_POST['checkin_date']) ? mysqli_real_escape_string($conn, $_POST['checkin_date']) : '';
-        $checkout_date = isset($_POST['checkout_date']) ? mysqli_real_escape_string($conn, $_POST['checkout_date']) : '';
+        $check_in_date = isset($_POST['check_in_date']) ? mysqli_real_escape_string($conn, $_POST['check_in_date']) : '';
+        $check_out_date = isset($_POST['check_out_date']) ? mysqli_real_escape_string($conn, $_POST['check_out_date']) : '';
         $room_id = isset($_POST['roomSelect']) ? intval($_POST['roomSelect']) : 0;
         $adults = isset($_POST['adults']) && is_numeric($_POST['adults']) && $_POST['adults'] >= 1 ? intval($_POST['adults']) : 1;
         $children = isset($_POST['children']) && is_numeric($_POST['children']) && $_POST['children'] >= 0 ? intval($_POST['children']) : 0;
 
         // Validate inputs
-        if (!$checkin_date || !$checkout_date || $room_id <= 0) {
+        if (!$check_in_date || !$check_out_date || $room_id <= 0) {
             $message = "Please fill in all required fields.";
         } else {
             // Calculate total price
-            $checkin = new DateTime($checkin_date);
-            $checkout = new DateTime($checkout_date);
+            $check_in_date = new DateTime($check_in_date);
+            $check_out_date = new DateTime($check_out_date);
             $interval = $checkin->diff($checkout);
             $nights = $interval->days;
 
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $total_price = $nights * $price_per_night;
 
                 // Check if the room_id exists in the room_table
-                $sql_check_room = "SELECT COUNT(*) as count FROM room_table WHERE room_id = ?";
+                $sql_check_room = "SELECT COUNT(*) as count FROM your_room_table WHERE room_id = ?";
                 $stmt_check_room = mysqli_prepare($conn, $sql_check_room);
                 mysqli_stmt_bind_param($stmt_check_room, "i", $room_id);
                 mysqli_stmt_execute($stmt_check_room);
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     $sql = "INSERT INTO reservation_table (room_id, check_in_date, check_out_date, adults, children, total_price, reservation_status)
                             VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "isiiid", $room_id, $checkin_date, $checkout_date, $adults, $children, $total_price);
+                    mysqli_stmt_bind_param($stmt, "isiiid", $room_id, $check_in_date, $check_out_date, $adults, $children, $total_price);
                     if (mysqli_stmt_execute($stmt)) {
                         $message = "Reservation added successfully.";
                     } else {
