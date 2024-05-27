@@ -154,7 +154,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 <!-- RESERVATION INTERFACE -->      
 
-<form action="ReservationTable.php" method="POST" class="booking-form">
+<form action="#" method="POST" class="booking-form">
     <div>
         <label for="checkin">Check In</label>
         <input type="date" id="checkin" name="checkin">
@@ -166,7 +166,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     <div>
         <label for="room">Room</label>
         <select id="room" name="room">
-        <option value="" disabled selected>Choose</option>
+            <option value="" disabled selected>Choose</option>
             <option value="presidential">Presidential Suite</option>
             <option value="deluxe">Deluxe Suite</option>
             <option value="executive">Executive Room</option>

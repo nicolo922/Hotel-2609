@@ -112,7 +112,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </button>
         </div>
         <div class="p-4">
-        <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+        <h1><a href="Emp_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
           <ul class="list-unstyled components mb-5">
             <li class="active">
               <a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
