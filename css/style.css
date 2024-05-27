@@ -8581,4 +8581,41 @@ a[data-toggle="collapse"] {
       border-radius: 5px;
       margin-bottom: 5px;
     }
-  
+
+    /* FOOTER */
+
+
+  .footer {
+   
+    color: #333; /* Text color */
+    padding: 40px 0;
+  }
+  .footer .container {
+    max-width: 1200px; /* Center content and limit width */
+    margin: 0 auto; /* Center align horizontally */
+  }
+  .footer h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .footer p {
+    color: #555; /* Darker text color */
+  }
+  .social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .social-links li {
+    margin-right: 10px;
+  }
+  .social-links li a {
+    color: #333; /* Social icon color */
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  .social-links li a:hover {
+    color: #007bff; /* Hover color (blue) */
+  }
+
