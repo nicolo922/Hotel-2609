@@ -1,56 +1,3 @@
-<?php
-include 'dbconnect.php'; // Assuming this file contains your database connection details
-
-// Initialize variables
-$tableData = '';
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Fetch data from the database
-$sql = "SELECT * FROM view_process";
-$result = mysqli_query($conn, $sql);
-
-// Check for errors in the query
-if (!$result) {
-    die("Error fetching data: " . mysqli_error($conn));
-}
-
-// Process fetched data
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $checkIn = new DateTime($row["check_in_date"]);
-        $formattedCheckIn = $checkIn->format("F j, Y, g:i A");
-        $checkOut = new DateTime($row["check_out_date"]);
-        $formattedCheckOut = $checkOut->format("F j, Y, g:i A");
-        $tableData .= "<tr>";
-        $tableData .= "<td>" . $row["reservation_id"] . "</td>";
-        $tableData .= "<td>" . $row["full_name"] . "</td>";
-        $tableData .= "<td>" . $row["room_type"] . "</td>";
-        $tableData .= "<td>" . $formattedCheckIn . "</td>";
-        $tableData .= "<td>" . $formattedCheckOut . "</td>";
-        $tableData .= "<td>" . $row["total_price"] . "</td>";
-        $tableData .= "<td>" . $row["reservation_status"] . "</td>";
-        $tableData .= "<td>";
-        $tableData .= "<form action='booking_process.php' method='post'>";
-        $tableData .= "<input type='hidden' name='reservation_id' value='" . $row["reservation_id"] . "'>";
-        $tableData .= "<button type='submit' name='accept' class='btn btn-success'> Accept </button>";
-        $tableData .= "&nbsp;&nbsp;&nbsp;";
-        $tableData .= "<button type='submit' name='decline' class='btn btn-danger'> Decline </button>";
-        $tableData .= "</form>";
-        $tableData .= "</td>";
-        $tableData .= "</tr>";
-    }
-} else {
-    $tableData .= "<tr><td colspan='8'>No records found</td></tr>";
-}
-
-// Close the database connection
-mysqli_close($conn);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,19 +47,72 @@ mysqli_close($conn);
     <div class="table-container">
         <table class="table table-striped table-hover">
             <thead>
-            <tr>
-                <th>Reservation ID</th>
-                <th>User ID</th>
-                <th>Room ID</th>
-                <th>Check-in Date</th>
-                <th>Check-out Date</th>
-                <th>Total Price</th>
-                <th>Reservation Status</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Check-in Date</th>
+                    <th>Check-out Date</th>
+                    <th>Room Type</th>
+                    <th>Adults</th>
+                    <th>Children</th>
+                </tr>
             </thead>
             <tbody>
-            <?php echo $tableData; ?>
+                <?php
+                // Include database connection
+                include 'dbconnect.php';
+
+                // Initialize variables
+                $checkin = $checkout = $room = $adult = $children = "";
+                $checkinErr = $checkoutErr = "";
+
+                // Handle form submission
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book_now"])) {
+                    // Validate and sanitize input
+                    $checkin = test_input($_POST['checkin']);
+                    $checkout = test_input($_POST['checkout']);
+                    $room = test_input($_POST['room']);
+                    $adult = test_input($_POST['adult']);
+                    $children = test_input($_POST['children']);
+
+                    // Perform SQL query to insert data into reservation table
+                    $sql = "INSERT INTO reservation_table (check_in_date, check_out_date, room_type, adults, children) 
+                            VALUES ('$checkin', '$checkout', '$room', '$adult', '$children')";
+
+                    // Execute SQL query
+                    if ($conn->query($sql) === TRUE) {
+                        echo "<p>Reservation successful!</p>";
+                    } else {
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+
+                // Function to sanitize input data
+                function test_input($data) {
+                    $data = trim($data);
+                    $data = stripslashes($data);
+                    $data = htmlspecialchars($data);
+                    return $data;
+                }
+
+                // Display reservations table
+                $sql = "SELECT * FROM reservation_table";
+                $result = $conn->query($sql);
+
+                if ($result !== false && $result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>".$row["reservation_id"]."</td>";
+                        echo "<td>".$row["check_in_date"]."</td>";
+                        echo "<td>".$row["check_out_date"]."</td>";
+                        echo "<td>".$row["room_type"]."</td>";
+                        echo "<td>".$row["adults"]."</td>";
+                        echo "<td>".$row["children"]."</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6'>No reservations found</td></tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
