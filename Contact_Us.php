@@ -39,7 +39,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             <li>
               <a href="Costumer_HotelHome.php"><span class="fa fa-home mr-3"></span>Home</a>
             </li>
-            <li class="active">
+            <li>
               <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Rooms</a>
             </li>
             <li>
@@ -51,7 +51,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             <li>
               <a href="About_Us.php"><span class="fa fa-paper-plane mr-3"></span>About Us</a>
             </li>
-            <li>
+            <li class="active">
                 <a href="Contact_Us.php"><span class="fa fa-paper-plane mr-3"></span>Conact Us</a>
             </li>
             <li>

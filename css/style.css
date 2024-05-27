@@ -8632,8 +8632,9 @@ a[data-toggle="collapse"] {
 
   .room-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Three columns with equal width */
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
     gap: 20px; /* Adjust the gap between items */
+    text-align: left; /* Align text to the left */
 }
 
 .room-gallery > div {
@@ -8643,6 +8644,7 @@ a[data-toggle="collapse"] {
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
     background-color: #ffffff;
+    text-align: left; /* Align text to the left */
 }
 
 .room-gallery > div img {
@@ -8651,6 +8653,7 @@ a[data-toggle="collapse"] {
     display: block;
     border-radius: 8px 8px 0 0; /* Rounded corners for top of image */
 }
+
 
 
 .resto-box {
