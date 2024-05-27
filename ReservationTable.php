@@ -97,8 +97,11 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
             <div class="showusertype">
         <h6>Welcome Admin!</h6>
     </div>
-    
+
             <!-- Navigation Links -->
+
+
+
             <ul class="list-unstyled components mb-5">
                 <li>
                     <a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
@@ -124,6 +127,7 @@ function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults,
 
     <!-- Main Content -->
     <div id="content" class="p-4 p-md-5 pt-5">
+        
         <div class="container mt-5">
             <h2>Reservation Table</h2>
             <p>You are in Admin View</p>

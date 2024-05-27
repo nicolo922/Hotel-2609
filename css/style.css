@@ -8619,3 +8619,7 @@ a[data-toggle="collapse"] {
     color: #007bff; /* Hover color (blue) */
   }
 
+  .showusertype {
+    text-align: center;
+}
+
