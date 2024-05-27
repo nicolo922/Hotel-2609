@@ -154,7 +154,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 <!-- RESERVATION INTERFACE -->      
 
-<form action="#" method="POST" class="booking-form">
+<form action="ReservationTable.php" method="POST" class="booking-form">
     <div>
         <label for="checkin">Check In</label>
         <input type="date" id="checkin" name="checkin">
