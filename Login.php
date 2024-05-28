@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif ($role == 'employee') {
             header("Location: Emp_HotelHome.php");
         } else {
-            header("Location: Costumer_HotelHome.php"); // Default redirect if user type is unknown
+            header("Location: Costumer_HotelHome.php");
         }
         exit();
     } else {
