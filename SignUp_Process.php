@@ -59,68 +59,125 @@ if (isset($_POST['submit'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <style>
-    body {
-    background: #f2f2f2;
-    font-family: Arial, sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body{
+        background: #fbf6ee;
+    }
+
+    .wrapper{
+        width: 450px;
+        padding: 2rem 1rem;
+        margin: 50px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    h1{
+        font-size: 2rem;
+        color: #07001f;
+        margin-bottom: 1.2rem;
+    }
+
+    form input{
+        width: 92%;
+        outline: none;
+        border: 1px solid #fff;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background: #e4e4e4;
+    }
+
+    button{
+        font-size: 1rem;
+        margin-top: 1.8rem;
+        padding: 10px 0;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        width: 90%;
+        color: #fff;
+        cursor: pointer;
+        background: #3c6930;
+    }
+
+    button:hover{
+        background: #628759;;
+    }
+
+    input:focus{
+        border: 1px solid rgb(192, 192, 192);
+    }
+
+    .terms{
+        margin-top: 0.2rem;
+    }
+
+    .terms input{
+        height: 1em;
+        width: 1em;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .terms label{
+        font-size:0.7rem;
+    }
+
+    .terms a{
+        color: rgb(17, 107, 143);
+        text-decoration: none;
+    }
+
+    .member a{
+        font-size: 0.8rem;
+        margin-top: 1.4rem;
+        color: #636363;
+        text-align: center;
+    }
+
+    .member a{
+        color: rgb(17, 107, 143);
+        text-decoration: none;
+    }
+
+    .recover{
+        text-align: right;
+        font-size: 0.7rem;
+        margin: 0.3rem 1.4rem 0 0;
+    }
+
+    .recover a{
+        text-decoration: none;
+        color: #464647;
+    }
+
+    .logo {
+    text-align: center; /* Center aligns its child elements */
 }
 
-.section-padding-100 {
-    padding: 100px 0;
+.logo img {
+    max-width: 300px; 
+    height: auto;
+    padding-top: 20px; /* Add padding to the top */
+    padding-bottom: 0; /* No padding at the bottom */
 }
+</style>
 
-.roberto-contact-area .container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.contact-form-area {
-    padding: 50px;
-}
-
-.contact-form-area h2 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.contact-form-area .form-group {
-    margin-bottom: 1.5rem;
-}
-
-.contact-form-area .form-group label {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.contact-form-area .form-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.contact-form-area .btn {
-    background: #007bff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.contact-form-area .btn:hover {
-    background: #0056b3;
-}
 
     </style>
 <body>
     <section class="roberto-contact-area section-padding-100">
-        <div class="container">
+        <div class="wrapper">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
                     <div class="contact-form-area contact-page">

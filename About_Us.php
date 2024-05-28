@@ -29,25 +29,31 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </button>
         </div>
         <div class="p-4">
-          <h1><a href="HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+        <h1><a href="Costumer_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
+
+        <div class="showusertype">
+        <h6>Welcome Dear Costumer!</h6>
+        <p id="datetime"></p>
+    </div>
+
           <ul class="list-unstyled components mb-5">
+            <li>
+              <a href="Costumer_HotelHome.php"><span class="fa fa-home mr-3"></span>Home</a>
+            </li>
+            <li>
+              <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Rooms</a>
+            </li>
+            <li>
+              <a href="Amenities.php"><span class="fa fa-briefcase mr-3"></span>Amenities</a>
+            </li>
+            <li>
+              <a href="Booking.php"><span class="fa fa-sticky-note mr-3"></span>Book Now</a>
+            </li>
             <li class="active">
-              <a href="HotelHome.php"><span class="fa fa-home mr-3"></span> Home</a>
+              <a href="About_Us.php"><span class="fa fa-paper-plane mr-3"></span>About Us</a>
             </li>
             <li>
-              <a href="UserTable.php"><span class="fa fa-user mr-3"></span> User Management</a>
-            </li>
-            <li>
-              <a href="RoomTable.php"><span class="fa fa-briefcase mr-3"></span> Rooms Table</a>
-            </li>
-            <li>
-              <a href="ReservationTable.php"><span class="fa fa-sticky-note mr-3"></span> Reservation Table</a>
-            </li>
-            <li>
-              <a href="AmenityTable.php"><span class="fa fa-paper-plane mr-3"></span> Amenity Table</a>
-            </li>
-            <li>
-              <a href="Logs.php"><span class="fa fa-paper-plane mr-3"></span> Logs</a>
+                <a href="Contact_Us.php"><span class="fa fa-paper-plane mr-3"></span>Conact Us</a>
             </li>
             <li>
               <a href="Login.php"><span class="fa fa-sign-out mr-3"></span> Logout</a>
@@ -69,8 +75,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             <div class="owner-photos">
             
               <div class="owner">
-              <a href="https://www.facebook.com/HiAkoSiLorenz" target="_blank">
-                <img src="images/renzy.jpg" alt="Owner 1">
+              <a href="https://www.facebook.com/renzy.briones.9" target="_blank">
+                <img src="uploads/renzy.jpg" alt="Laurenz Briones">
                 </a>
 
                 <h3>Laurenz Nicolo T. Briones</h3>
@@ -79,8 +85,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             </div>
 
               <div class="owner">
-              <a href="https://www.facebook.com/renzy.briones.9" target="_blank">
-                <img src="images/renzy.jpg" alt="Owner 2">
+              <a href="https://www.facebook.com/HiAkoSiLorenz" target="_blank">
+                <img src="uploads/ralph.jpg" alt="Lorenz Bonifacio">
                 </a>
                 <h3>Ralph Lorenz M. Bonifacio</h3>
                 <p>Ralph Lorenz M. Bonifacio brings a wealth of knowledge and expertise in luxury hotel management to LL Hotel. His career is marked by a relentless pursuit of excellence and a dedication to creating memorable guest experiences. With a keen eye for detail and a deep understanding of guest needs, Ralph has played a pivotal role in establishing LL Hotel as a premier destination for discerning travelers. His commitment to quality and personalized service ensures that every guest feels valued and enjoys a truly unique and memorable stay.</p>
@@ -94,8 +100,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
       </div>
     </div>
 
-        <!-- FOOTER -->
-<br>
+    <!-- FOOTER -->
+    <br>
 <br>
 
   <footer class="footer">
@@ -105,7 +111,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <h3>Contact Us</h3>
         <p>Email: llhotel.com</p>
         <p>Phone: +1234567890</p>
-        <p>Address: 123 Main Street, Big Red Sport, Jupiter</p>
+        <p>Address: 123 Main Street, Big Red Spot, Jupiter</p>
       </div>
       <div class="col-md-4 text-center">
         <h3>Follow Us</h3>
@@ -125,6 +131,32 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     </div>
   </div>
 </footer>
+
+<script>
+    function displayDateTime() {
+        const now = new Date();
+        const datetimeElement = document.getElementById('datetime');
+        const options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false // Use 24-hour format
+        };
+        const formattedDateTime = now.toLocaleDateString('en-US', options);
+        datetimeElement.textContent = formattedDateTime;
+    }
+
+    // Call displayDateTime once when the page loads
+    displayDateTime();
+
+    // Update time every second
+    setInterval(displayDateTime, 1000);
+</script>
+
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>

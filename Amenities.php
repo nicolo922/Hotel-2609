@@ -42,7 +42,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             <li>
               <a href="Rooms.php"><span class="fa fa-user mr-3"></span>Rooms</a>
             </li>
-            <li>
+            <li class="active">
               <a href="Amenities.php"><span class="fa fa-briefcase mr-3"></span>Amenities</a>
             </li>
             <li>
@@ -51,7 +51,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             <li>
               <a href="About_Us.php"><span class="fa fa-paper-plane mr-3"></span>About Us</a>
             </li>
-            <li class="active">
+            <li>
                 <a href="Contact_Us.php"><span class="fa fa-paper-plane mr-3"></span>Conact Us</a>
             </li>
             <li>
@@ -66,16 +66,41 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
             <div class="content-container">
                 <div class="about-us">
-                    <h1>Contact Us</h1>
-                    <p>Welcome to our Contact Us page at LL Hotel. Whether you have questions, feedback, or need assistance, we're here to help. Reach out to our friendly staff via phone, email, or visit us at our conveniently located address. We look forward to hearing from you and assisting with your inquiries promptly and professionally.</p>
+                    <h1>Amenities</h1>
+                    <p>From modern fitness facilities and a relaxing spa to gourmet dining options and spacious event venues, LL Hotel provides everything you need for a comfortable and memorable experience. Whether you're here for business or leisure, our amenities cater to your every need, ensuring a relaxing and enjoyable stay.</p>
 <br>
                     <!-- Room Options in Image Container -->
  
+<!-- Amenities Options in Image Container -->
+<h3>Explore our Amenities</h3>
 
 
+<div class="room-gallery">
+    <?php
+    include 'dbconnect.php';
 
+    // Execute a new query to fetch all room details
+    $sql = "SELECT * FROM amenity_table";
+    $result = mysqli_query($conn, $sql);
 
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div>';
+            echo '<img src="' . $row['image_url'] . '" alt="Room Image">';
+            echo '<div class="room-description">';
+            echo '<h2>' . $row['amenity_name'] . '</h2>';
+            echo '<p>' . $row['description'] . '</p>';
+            echo '<h2>' . $row['price_per_use'] . '</h2>';
+            echo '</div>'; // Close room-description div
+            echo '</div>'; // Close main div for this room
+        }
+    } else {
+        echo "No rooms found.";
+    }
 
+    mysqli_close($conn);
+    ?>
+</div>
 
 <br>
 <br>
