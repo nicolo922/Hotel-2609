@@ -188,9 +188,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         // Function to calculate total price
         function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
             $roomPrices = [
-                15 => 20000,  // Assuming room_id 10 is Presidential Suite
-                14 => 7000,    // Assuming room_id 8 is Executive Room
-                13 => 15000,   // Assuming room_id 2 is Deluxe Suite
+                15 => 20000,   
+                14 => 15000,
+                13 => 7000, 
             ];
         
             if (!isset($roomPrices[$room_id])) {
