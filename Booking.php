@@ -86,8 +86,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
             <option value="15">Presidential Suite</option>
-            <option value="13">Deluxe Suite</option>
             <option value="14">Executive Room</option>
+            <option value="13">Deluxe Suite</option>
         </select>
     </div>
     <div class="bookpage-form-group">
