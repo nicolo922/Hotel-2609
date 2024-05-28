@@ -150,7 +150,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
                 
                 $result = $conn->query($insertsql);
                 
-                header("location: ReservationTable.php");
+                header("location: Booking.php");
 
 
             // if ($room_count == 0) {
@@ -189,8 +189,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
             $roomPrices = [
                 15 => 20000,  // Assuming room_id 10 is Presidential Suite
-                13 => 15000,   // Assuming room_id 2 is Deluxe Suite
                 14 => 7000,    // Assuming room_id 8 is Executive Room
+                13 => 15000,   // Assuming room_id 2 is Deluxe Suite
             ];
         
             if (!isset($roomPrices[$room_id])) {

@@ -97,9 +97,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <label for="room">Room</label>
         <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
-            <option value="10">Presidential Suite</option> <!-- Ensure these values match your room IDs -->
-            <option value="2">Deluxe Suite</option>
-            <option value="8">Executive Room</option>
+            <option value="15">Presidential Suite</option> <!-- Ensure these values match your room IDs -->
+            <option value="13">Deluxe Suite</option>
+            <option value="14">Executive Room</option>
         </select>
     </div>
     <div>
