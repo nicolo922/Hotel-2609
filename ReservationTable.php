@@ -6,7 +6,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['id'];
 
 // Fetch reservations for the logged-in user
 $sql = "SELECT * FROM reservation_table WHERE user_id = ?";
