@@ -41,6 +41,7 @@ if (isset($_POST['ver'])) {
     <title>OTP Verification</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <style>
     body {
@@ -120,7 +121,6 @@ if (isset($_POST['ver'])) {
                             </div>
                             <!-- Verify button -->
                             <button type="submit" name="ver" class="btn roberto-btn btn-block w-100 mb-4">Verify</button>
-                            
                         </form>
                     </div>
                 </div>
