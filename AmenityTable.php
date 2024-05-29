@@ -63,7 +63,6 @@
                     <form id="amenityForm" action="amenity_add.php" method="POST" enctype="multipart/form-data">
                         <div class="reviwer-thumbnail">
                             <label for="upload_img" class="upload-label">
-                                <img src="./img/bg-img/upload-icon.png" alt="Upload Image" id="preview_img">
                                 <input type="file" name="upload_img" id="upload_img" accept="image/*" onchange="previewImg(event)" required>
                             </label>
                         </div>

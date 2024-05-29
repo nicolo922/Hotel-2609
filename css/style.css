@@ -8751,3 +8751,10 @@ a[data-toggle="collapse"] {
 .bookpage-form-group button:hover {
   background-color: #628759;
 }
+
+
+.reviwer-thumbnail img {
+  max-width: 100px; /* Adjust the size as needed */
+  max-height: 100px; /* Adjust the size as needed */
+  display: none; /* Hide the image initially */
+}
