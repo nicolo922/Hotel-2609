@@ -18,22 +18,20 @@ if (isset($_POST['ver'])) {
         header("Location: Login.php");
         exit();
     } else {
-        ?>
-        <script>
-            Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Invalid OTP number",
-            showConfirmButton: false,
-            timer: 1500
-            });
-        </script>
-
-    <?php
+        echo '<script>
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Invalid OTP number",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = "verifyotp.php"; 
+                });
+              </script>';
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +40,7 @@ if (isset($_POST['ver'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP Verification</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 </head>
 <style>
