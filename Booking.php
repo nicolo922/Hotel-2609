@@ -199,7 +199,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         
             $room_price = $roomPrices[$room_id];
             $num_nights = (strtotime($check_out_date) - strtotime($check_in_date)) / (60 * 60 * 24);
-            return $room_price * $num_nights * ($adults + ($children * 0.5));
+            return $room_price * $num_nights;
         }
         ?>
 </form>

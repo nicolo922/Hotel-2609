@@ -110,8 +110,8 @@
                             echo '<p>' . $row['description'] . '</p>';
                             echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
                             echo '<h2>₱' . $row['price_per_night'] . ' <span>/ Day</span></h2>';
-                            echo '</div>'; // Close room-description div
-                            echo '</div>'; // Close main div for this room
+                            echo '</div>';
+                            echo '</div>';
                         }
                     } else {
                         echo "No rooms found.";
