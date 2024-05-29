@@ -112,14 +112,14 @@
     }
 
     .logo {
-    text-align: center; /* Center aligns its child elements */
+    text-align: center;
 }
 
 .logo img {
     max-width: 300px; 
     height: auto;
-    padding-top: 20px; /* Add padding to the top */
-    padding-bottom: 0; /* No padding at the bottom */
+    padding-top: 20px;
+    padding-bottom: 0;
 }
 </style>
 

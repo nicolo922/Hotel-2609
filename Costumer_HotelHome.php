@@ -7,7 +7,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 }
 ?>
 
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,8 +20,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     <link rel="stylesheet" href="css/style.css">
 
   </head>
-
-
 
   <body>
     <div class="wrapper d-flex align-items-stretch">
@@ -67,8 +64,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         </div>
       </nav>
 
-
-
       <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
         <!-- Hotel Description and Image Container -->
@@ -80,7 +75,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </div>
 
           <br>
-
 
 <!-- RESERVATION INTERFACE -->      
 
@@ -97,7 +91,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <label for="room">Room</label>
         <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
-            <option value="15">Presidential Suite</option> <!-- Ensure these values match your room IDs -->
+            <option value="15">Presidential Suite</option>
             <option value="13">Deluxe Suite</option>
             <option value="14">Executive Room</option>
         </select>
@@ -111,17 +105,13 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <input type="number" id="children" name="children" min="0" max="10" value="0" required>
     </div>
     <div>
-      
         <button type="submit">Book Now</button>
     </div>
 </form>
-
 <br>
-
 
 <!-- Room Options in Image Container -->
 <h3>Explore Rooms & Suites</h3>
-
 
 <div class="image-container">
     <?php
@@ -140,8 +130,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             echo '<p>' . $row['description'] . '</p>';
             echo '<h2>Capacity: <span>' . $row['capacity'] . '</span></h2>';
             echo '<h2> ₱' . $row['price_per_night'] . ' <span>/ Day</span><h2>';
-            echo '</div>'; // Close room-description div
-            echo '</div>'; // Close main div for this room
+            echo '</div>';
+            echo '</div>';
         }
     } else {
         echo "No rooms found.";
@@ -150,18 +140,14 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     mysqli_close($conn);
     ?>
 </div>
-
 <br>
 <br>
 
 <!-- Amenities Options in Image Container -->
 <h3>Explore our Amenities</h3>
-
-
 <div class="image-container">
     <?php
     include 'dbconnect.php';
-
     // Execute a new query to fetch all room details
     $sql = "SELECT * FROM amenity_table";
     $result = mysqli_query($conn, $sql);
@@ -180,14 +166,12 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     } else {
         echo "No rooms found.";
     }
-
     mysqli_close($conn);
     ?>
 </div>
         <br>
         <br>
         <br>
-
         <h3>Discover Our Restaurants</h3>
 
   <div class="slideshow-container">
@@ -202,7 +186,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         </div>
       </div>
     </div>
-    
+
     <div class="slide">
       <div class="resto-box">
         <div>

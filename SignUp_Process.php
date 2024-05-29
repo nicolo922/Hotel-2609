@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
     // Execute insert query
     if ($conn->query($insertQuery) === TRUE) {
-        send_otp($fullname, $email, $otp); // Assuming you have a function to send OTP
+        send_otp($fullname, $email, $otp);
 ?>
         <script>
             Swal.fire({
@@ -30,12 +30,11 @@ if (isset($_POST['submit'])) {
                 showConfirmButton: false,
                 timer: 1500
             }).then(function() {
-                window.location.href = 'verifyotp.php'; // Redirect to OTP verification page
+                window.location.href = 'verifyotp.php';
             });
         </script>
 <?php
     } else {
-        // Handle insertion error
         echo "<script>
             Swal.fire({
                 position: 'center',
@@ -162,19 +161,17 @@ if (isset($_POST['submit'])) {
     }
 
     .logo {
-    text-align: center; /* Center aligns its child elements */
+    text-align: center;
 }
 
 .logo img {
     max-width: 300px; 
     height: auto;
-    padding-top: 20px; /* Add padding to the top */
-    padding-bottom: 0; /* No padding at the bottom */
+    padding-top: 20px;
+    padding-bottom: 0;
 }
 </style>
 
-
-    </style>
 <body>
     <section class="roberto-contact-area section-padding-100">
         <div class="wrapper">

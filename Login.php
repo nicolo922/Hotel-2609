@@ -128,7 +128,6 @@
 <p class="logo"><img src="images/logohotel.png"></p>
 
 <body>
-
 <div class="wrapper">
     <h1>Login</h1>
     <form method="POST" action="">
