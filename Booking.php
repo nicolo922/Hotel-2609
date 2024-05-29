@@ -12,7 +12,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LL Hotel</title>
-    <link rel="icon" href="images/hotel_icon.png" type="image/x-icon">
+    <link rel="icon" href="images/ball.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -29,7 +29,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         </div>
         <div class="p-4">
         <h1><a href="Costumer_HotelHome.php" class="logo"><img src="images/logohotel.png"></a></h1>
-
         <div class="showusertype">
         <h6>Welcome Dear Costumer!</h6>
         <p id="datetime"></p>
@@ -85,9 +84,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <label for="room">Room</label>
         <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
-            <option value="15">Presidential Suite</option>
-            <option value="14">Executive Room</option>
-            <option value="13">Deluxe Suite</option>
+            <option value="31">Presidential Suite</option>
+            <option value="32">Deluxe Suite</option>
+            <option value="33">Executive Room</option>
         </select>
     </div>
     <div class="bookpage-form-group">
@@ -116,13 +115,14 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             // Retrieve data from session and POST request
             $user_id = $_SESSION['id'];
             $room_id = $_POST['roomSelect'];
+            echo $room_id;
             $check_in_date = $_POST['checkin_date'];
             $check_out_date = $_POST['checkout_date'];
             $adults = $_POST['adults'];
             $children = $_POST['children'];
         
             // Check if the selected room exists
-            // $stmt = $conn->prepare("SELECT COUNT(*) FROM room_table WHERE room_id = ?");
+            
             // if ($stmt) {
             //     $stmt->bind_param("i", $room_id);
             //     $stmt->execute();
@@ -135,7 +135,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             // }
         
             // Validate room selection
-
             if ($room_id == 0) {
                 $message = "Invalid room selection.";
             } else {
@@ -150,36 +149,25 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
                 
                 $result = $conn->query($insertsql);
                 
-                header("location: Booking.php");
-
-
-            // if ($room_count == 0) {
-            //     $message = "Invalid room selection.";
-            // } else {
-            //     // Calculate total price
-            //     $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
-            //     $reservation_status = 'Pending';
-            //     $room_type = ''; // Assuming you have a way to determine room type, add logic here if needed
-        
-            //     // Insert reservation into the database
-            //     $stmt = $conn->prepare("INSERT INTO reservation_table ( ) 
-            //                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            //     if ($stmt) {
-            //         // Corrected the parameter types and values to be bound
-            //         $stmt->bind_param("iissdsiis", $user_id, $room_id, $check_in_date, $check_out_date, $total_price, $reservation_status, $adults, $children, $room_type);
-            //         if ($stmt->execute()) {
-            //             $message = "Reservation successful!";
-            //             // Redirect to ReservationTable.php
-            //             header("Location: ReservationTable.php");
-            //             exit;
-            //         } else {
-            //             $message = "Error executing statement: " . $stmt->error;
-            //         }
-            //         $stmt->close();
-            //     } else {
-            //         $message = "Error preparing statement: " . $conn->error;
-            //     }
-            // }
+                header("location: ReservationTable.php");
+                
+                
+                
+                // if ($stmt) {
+                //     // Corrected the parameter types and values to be bound
+                //     $stmt->bind_param("iissdsiis", $user_id, $room_id, $check_in_date, $check_out_date, $total_price, $reservation_status, $adults, $children, $room_type);
+                //     if ($stmt->execute()) {
+                //         $message = "Reservation successful!";
+                //         // Redirect to ReservationTable.php
+                //         header("Location: ReservationTable.php");
+                //         exit;
+                //     } else {
+                //         $message = "Error executing statement: " . $stmt->error;
+                //     }
+                //     $stmt->close();
+                // } else {
+                //     $message = "Error preparing statement: " . $conn->error;
+                // }
             }
         
             $conn->close();
@@ -188,9 +176,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         // Function to calculate total price
         function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
             $roomPrices = [
-                15 => 20000,   
-                14 => 15000,
-                13 => 7000, 
+                31 => 20000,  // Assuming room_id 10 is Presidential Suite
+                33 => 15000,   // Assuming room_id 2 is Deluxe Suite
+                32 => 7000,    // Assuming room_id 8 is Executive Room
             ];
         
             if (!isset($roomPrices[$room_id])) {
@@ -199,7 +187,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         
             $room_price = $roomPrices[$room_id];
             $num_nights = (strtotime($check_out_date) - strtotime($check_in_date)) / (60 * 60 * 24);
-            return $room_price * $num_nights;
+            return $room_price * $num_nights * ($adults + ($children * 0.5));
         }
         ?>
 </form>
