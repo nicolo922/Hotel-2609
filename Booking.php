@@ -5,7 +5,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +16,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar" class="active">
@@ -59,7 +57,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
           </ul>
         </div>
       </nav>
-
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
 
@@ -70,7 +67,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 <br>
 
 <!-- RESERVATION INTERFACE -->      
-
 <form action="Booking.php" method="POST" class="bookpage-form">
     <div class="bookpage-form-group">
         <label for="checkin">Check In</label>
@@ -84,9 +80,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         <label for="room">Room</label>
         <select id="room" name="roomSelect" required>
             <option value="" disabled selected>Choose</option>
-            <option value="31">Presidential Suite</option>
-            <option value="32">Deluxe Suite</option>
-            <option value="33">Executive Room</option>
+            <option value="33">Presidential Suite</option>
+            <option value="32">Executive Room</option>
+            <option value="31">Deluxe Room</option>
         </select>
     </div>
     <div class="bookpage-form-group">
@@ -146,9 +142,9 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         // Function to calculate total price
         function calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children) {
             $roomPrices = [
-                31 => 20000,  // Assuming room_id 10 is Presidential Suite
-                33 => 15000,   // Assuming room_id 2 is Deluxe Suite
-                32 => 7000,    // Assuming room_id 8 is Executive Room
+                33 => 20000,
+                32 => 15000,
+                31 => 7000,
             ];
         
             if (!isset($roomPrices[$room_id])) {
@@ -197,7 +193,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         </div>
     </div>
 
-
     <script>
     function displayDateTime() {
         const now = new Date();
@@ -214,14 +209,12 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
         const formattedDateTime = now.toLocaleDateString('en-US', options);
         datetimeElement.textContent = formattedDateTime;
     }
-
     // Call displayDateTime once when the page loads
     displayDateTime();
 
     // Update time every second
     setInterval(displayDateTime, 1000);
 </script>
-
     <!-- JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>

@@ -69,8 +69,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
                     <h1>Amenities</h1>
                     <p>From modern fitness facilities and a relaxing spa to gourmet dining options and spacious event venues, LL Hotel provides everything you need for a comfortable and memorable experience. Whether you're here for business or leisure, our amenities cater to your every need, ensuring a relaxing and enjoyable stay.</p>
 <br>
-                    <!-- Room Options in Image Container -->
- 
+
 <!-- Amenities Options in Image Container -->
 <h3>Explore our Amenities</h3>
 
@@ -78,7 +77,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
 <div class="room-gallery">
     <?php
     include 'dbconnect.php';
-
     // Execute a new query to fetch all room details
     $sql = "SELECT * FROM amenity_table";
     $result = mysqli_query($conn, $sql);
@@ -91,20 +89,17 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             echo '<h2>' . $row['amenity_name'] . '</h2>';
             echo '<p>' . $row['description'] . '</p>';
             echo '<h2>' . $row['price_per_use'] . '</h2>';
-            echo '</div>'; // Close room-description div
-            echo '</div>'; // Close main div for this room
+            echo '</div>';
+            echo '</div>';
         }
     } else {
         echo "No rooms found.";
     }
-
     mysqli_close($conn);
     ?>
 </div>
-
 <br>
 <br>
-
             <!-- Footer -->
             <footer class="footer">
                 <div class="container">
@@ -135,7 +130,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             </footer>
         </div>
     </div>
-
 
     <script>
     function displayDateTime() {
