@@ -113,18 +113,15 @@
     }
 
     .logo {
-    text-align: center; /* Center aligns its child elements */
+    text-align: center;
 }
 
 .logo img {
     max-width: 300px; 
     height: auto;
-    padding-top: 50px; /* Add padding to the top */
-    padding-bottom: 0; /* No padding at the bottom */
+    padding-top: 50px;
+    padding-bottom: 0;
 }
-
-
-
 
 </style>
 
@@ -151,7 +148,7 @@ include "dbconnect.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = md5($_POST['password']); // Use a more secure hashing algorithm like bcrypt in production
+    $password = md5($_POST['password']);
     $action = "Logged In";
 
     if (empty($username) || empty($password)) {

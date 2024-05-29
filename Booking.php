@@ -121,19 +121,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             $adults = $_POST['adults'];
             $children = $_POST['children'];
         
-            // Check if the selected room exists
-            
-            // if ($stmt) {
-            //     $stmt->bind_param("i", $room_id);
-            //     $stmt->execute();
-            //     $stmt->bind_result($room_count);
-            //     $stmt->fetch();
-            //     $stmt->close();
-            // } else {
-            //     $message = "Error preparing statement: " . $conn->error;
-            //     exit; // Exit script on error
-            // }
-        
             // Validate room selection
             if ($room_id == 0) {
                 $message = "Invalid room selection.";
@@ -151,23 +138,6 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
                 
                 header("location: Booking.php");
                 
-                
-                
-                // if ($stmt) {
-                //     // Corrected the parameter types and values to be bound
-                //     $stmt->bind_param("iissdsiis", $user_id, $room_id, $check_in_date, $check_out_date, $total_price, $reservation_status, $adults, $children, $room_type);
-                //     if ($stmt->execute()) {
-                //         $message = "Reservation successful!";
-                //         // Redirect to ReservationTable.php
-                //         header("Location: ReservationTable.php");
-                //         exit;
-                //     } else {
-                //         $message = "Error executing statement: " . $stmt->error;
-                //     }
-                //     $stmt->close();
-                // } else {
-                //     $message = "Error preparing statement: " . $conn->error;
-                // }
             }
         
             $conn->close();

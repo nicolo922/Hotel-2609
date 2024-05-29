@@ -9,9 +9,8 @@ if ($conn->connect_error) {
 $user_id = $_SESSION['id'];
 
 // Fetch reservations for the logged-in user
-$sql = "SELECT * FROM reservation_table WHERE user_id = ?";
+$sql = "SELECT * FROM reservation_table";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
