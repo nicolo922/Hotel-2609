@@ -73,7 +73,6 @@ include 'dbconnect.php';
     if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
     }
-
     $sql = "SELECT * FROM view_logs";
     $search = '';
 
@@ -83,15 +82,12 @@ include 'dbconnect.php';
                     OR action LIKE '%" . $search . "%' 
                     OR DateTime LIKE '%" . $search . "%'";
     }
-
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
         die("Error fetching data: " . mysqli_error($conn));
     }
-
     ?>
-
                 <table class="table">
                     <thead>
                     <tr>
@@ -120,15 +116,12 @@ include 'dbconnect.php';
                         ?>
                     </tbody>
                 </table>
-
                 <?php
                 mysqli_close($conn);
                 ?>
-                
             </div>
         </div>
     </div>
-
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>

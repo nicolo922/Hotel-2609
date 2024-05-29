@@ -50,16 +50,12 @@
 
         <!-- Page Content -->
         <div id="content" class="p-4 p-md-5 pt-5">
-
-
-
             <div class="content-container">
                 <!-- Title Description -->
                 <div class="hotel-description">
                     <h1>User Management</h1>
                     <p>You are in Admin View</p>
                 </div>
-
                 <!-- Search Form -->
                 <div class="search-form mt-3">
                     <form method="post" action="">
@@ -75,36 +71,29 @@
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 }
-
                 $search = "";
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
                     $search = $_POST['search'];
                 }
-
                 $sql = "SELECT * FROM user_table";
 
                 if (!empty($search)) {
                     $keywords = explode(" ", $search);
                     $conditions = [];
-
                     foreach ($keywords as $keyword) {
                         $conditions[] = "user_id LIKE '%" . $keyword . "%' OR 
                                         full_name LIKE '%" . $keyword . "%' OR 
                                         role LIKE '%" . $keyword . "%' OR 
                                         username LIKE '%" . $keyword . "%'";
                     }
-
                     $sql .= " WHERE " . implode(" OR ", $conditions);
                 }
-
                 $result = mysqli_query($conn, $sql);
-
                 if (!$result) {
                     die("Error fetching data: " . mysqli_error($conn));
                 }
                 ?>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -135,14 +124,12 @@
                         ?>
                     </tbody>
                 </table>
-
                 <?php
                 mysqli_close($conn);
                 ?>
             </div>
         </div>
     </div>
-
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
