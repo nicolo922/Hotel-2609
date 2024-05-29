@@ -87,6 +87,10 @@ $conn->close();
                             <td><?php echo htmlspecialchars($row['adults']); ?></td>
                             <td><?php echo htmlspecialchars($row['children']); ?></td>
                             <td><?php echo htmlspecialchars($row['room_type']); ?></td>
+                            <td>
+                            <button type="button" class="container btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#editModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Edit</a>
+                            <button type="button" class="container btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Delete</a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
