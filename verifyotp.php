@@ -32,7 +32,7 @@ if (isset($_POST['ver'])) {
     }
 }
 ?>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
