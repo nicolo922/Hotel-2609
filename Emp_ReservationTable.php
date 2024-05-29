@@ -1,7 +1,28 @@
+<?php
+session_start();
+include 'dbconnect.php'; // Ensure this file contains the correct database connection setup
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$user_id = $_SESSION['id'];
+
+// Fetch reservations for the logged-in user
+$sql = "SELECT * FROM reservation_table WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$stmt->close();
+$conn->close();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>LL Hotel</title>
+  	<title>Reservation Table</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="images/hotel_icon.png" type="image/x-icon">
@@ -46,108 +67,73 @@
 			</nav>
 
         <!-- Page Content  -->
-
-
-
-      <div id="content" class="p-4 p-md-5 pt-5">
-
-      <div class="content-container">
-          <!-- Title Description -->
-          <div class="hotel-description">
-            <h1>Reservation Table</h1>
-            <p>You are in Employee View</p>
-          </div>
-          
-		<table class="table">
-			<thead>
-				<tr>
-					<th>User ID</th>
-					<th>Full Name</th>
-					<th>Role</th>
-					<th>Username</th>
-					<th>Password</th>
-					<th>Email</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Lorenz Bonifacio</td>
-					<td>Admin</td>
-					<td>lbonifacio</td>
-					<td>1234</td>
-					<td>lbonifacio@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Laurenz Briones</td>
-					<td>Admin</td>
-					<td>lbriones</td>
-					<td>5678</td>
-					<td>lbriones@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Jason Agilada</td>
-					<td>Customer</td>
-					<td>jasonalamillo123</td>
-					<td>101010</td>
-					<td>jasonalamillo@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>Ravin Agon</td>
-					<td>Customer</td>
-					<td>ravinagon123</td>
-					<td>908070</td>
-					<td>ravinagon@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>Kirby Pada</td>
-					<td>Customer</td>
-					<td>kirbypada123</td>
-					<td>654321</td>
-					<td>kirbypada@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>Cassey Dela Cuz</td>
-					<td>Customer</td>
-					<td>casseydelacuz123</td>
-					<td>246810</td>
-					<td>casseydelacuz@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>Marko Alamillo</td>
-					<td>Customer</td>
-					<td>markoalamillo123</td>
-					<td>135790</td>
-					<td>markoalamillo@gmail.com</td>
-					<td><button type="button" class="btn btn-success" data-bs-dismiss="modal">Edit</button></td>
-					<td><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button></td>
-				</tr>
-			</tbody>
-		</table>
-
-	</div>
-
+		<div id="content" class="p-4 p-md-5 pt-5">
+        <div class="container mt-5">
+            <h2>Reservation Table</h2>
+            <p>You are in Admin View</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Reservation_ID</th>
+                        <th>User_ID</th>
+                        <th>Room_ID</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Total Price</th>
+                        <th>Reservation Status</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                        <th>Room_Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['reservation_id']); ?></td>
+                            <td><?php echo htmlspecialchars($row['user_id']); ?></td>
+                            <td><?php echo htmlspecialchars($row['room_id']); ?></td>
+                            <td><?php echo htmlspecialchars($row['check_in_date']); ?></td>
+                            <td><?php echo htmlspecialchars($row['check_out_date']); ?></td>
+                            <td><?php echo htmlspecialchars($row['total_price']); ?></td>
+                            <td><?php echo htmlspecialchars($row['reservation_status']); ?></td>
+                            <td><?php echo htmlspecialchars($row['adults']); ?></td>
+                            <td><?php echo htmlspecialchars($row['children']); ?></td>
+                            <td><?php echo htmlspecialchars($row['room_type']); ?></td>
+                            <td>
+                            <button type="button" class="container btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#editModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Edit</a>
+                            <button type="button" class="container btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Delete</a>
+                            </td>
+                        </tr>
+                        <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal<?php echo htmlspecialchars($row['reservation_id']); ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?php echo htmlspecialchars($row['reservation_id']); ?>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel<?php echo htmlspecialchars($row['reservation_id']); ?>">Delete Reservation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this reservation?
+                            </div>
+                            <div class="modal-footer">
+                                <form action="ReservationTable.php" method="POST">
+                                    <input type="hidden" name="reservation_id" value="<?php echo htmlspecialchars($row['reservation_id']); ?>">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 		
 

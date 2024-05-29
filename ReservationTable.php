@@ -87,14 +87,43 @@ $conn->close();
                             <td><?php echo htmlspecialchars($row['adults']); ?></td>
                             <td><?php echo htmlspecialchars($row['children']); ?></td>
                             <td><?php echo htmlspecialchars($row['room_type']); ?></td>
+                            <td>
+                            <button type="button" class="container btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#editModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Edit</a>
+                            <button type="button" class="container btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo htmlspecialchars($row['reservation_id']); ?>">Delete</a>
+                            </td>
                         </tr>
+                        <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal<?php echo htmlspecialchars($row['reservation_id']); ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?php echo htmlspecialchars($row['reservation_id']); ?>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel<?php echo htmlspecialchars($row['reservation_id']); ?>">Delete Reservation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this reservation?
+                            </div>
+                            <div class="modal-footer">
+                                <form action="ReservationTable.php" method="POST">
+                                    <input type="hidden" name="reservation_id" value="<?php echo htmlspecialchars($row['reservation_id']); ?>">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
+ 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>

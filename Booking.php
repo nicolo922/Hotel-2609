@@ -141,7 +141,7 @@ if(isset($_SESSION['username']) && isset($_SESSION['password'])){
             } else {
                 // Calculate total price
                 $total_price = calculateTotalPrice($room_id, $check_in_date, $check_out_date, $adults, $children);
-                $reservation_status = 'Pending';
+                $reservation_status = 'Successful';
                 $room_type = $_POST['roomSelect']; // Assuming you have a way to determine room type, add logic here if needed
         
                 // Insert reservation into the database
