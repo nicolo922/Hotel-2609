@@ -181,9 +181,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Redirect to the respective dashboard based on user type
         if ($role == 'admin') {
-            header("Location: HotelHome.php");
+            header("Location: UserTable.php");
         } elseif ($role == 'employee') {
-            header("Location: Emp_HotelHome.php");
+            header("Location: Emp_RoomTable.php");
         } else {
             header("Location: Costumer_HotelHome.php");
         }
